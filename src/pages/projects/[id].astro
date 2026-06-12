@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, status, links } = project.data;
+
+const badgeStyles: Record<string, string> = {
+  shipped: "border-violet-500/40 bg-violet-500/10 text-violet-300",
+  experiment: "border-white/15 text-mist-400",
+  research: "border-blush-200/30 bg-blush-200/5 text-blush-200",
+};
+---
+
+<Base title={`${title} | LibertAI Labs`} description={summary}>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <a
+      href="/#projects"
+      class="text-sm text-mist-500 transition-colors hover:text-mist-100"
+    >
+      &larr; All projects
+    </a>
+    <div class="mt-8 flex items-center gap-3">
+      <span
+        class={`rounded-full border px-2.5 py-0.5 text-xs ${badgeStyles[status]}`}
+      >
+        {status}
+      </span>
+    </div>
+    <h1 class="mt-4 font-display text-4xl tracking-tight text-mist-100">
+      {title}
+    </h1>
+    <p class="mt-4 text-lg leading-relaxed text-mist-300">{summary}</p>
+    {
+      links.length > 0 && (
+        <div class="mt-6 flex flex-wrap gap-3">
+          {links.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener"
+              class="rounded-full border border-white/15 px-4 py-1.5 text-sm text-mist-100 transition-colors hover:border-white/30"
+            >
+              {link.label}&nbsp;&#8599;
+            </a>
+          ))}
+        </div>
+      )
+    }
+    <hr class="my-10 border-white/8" />
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>

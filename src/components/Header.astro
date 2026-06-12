@@ -1,0 +1,41 @@
+---
+const links = [
+  { label: "Projects", href: "/#projects" },
+  { label: "Notes", href: "/#notes" },
+  {
+    label: "Models",
+    href: "https://huggingface.co/LibertAIDAI",
+    external: true,
+    desktopOnly: true,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Libertai",
+    external: true,
+    desktopOnly: true,
+  },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-white/5 bg-night-900/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+    <a href="/" class="flex items-baseline gap-2">
+      <img src="/logo-white.svg" alt="LibertAI" class="h-4 w-auto translate-y-px" />
+      <span class="font-display text-base text-blush-200">Labs</span>
+    </a>
+    <nav class="flex items-center gap-5 sm:gap-7">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class={`text-sm text-mist-400 transition-colors hover:text-mist-100 ${link.desktopOnly ? "hidden sm:inline" : ""}`}
+            {...(link.external ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            {link.label}
+            {link.external && <span aria-hidden="true" class="text-mist-500">&nbsp;&#8599;</span>}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

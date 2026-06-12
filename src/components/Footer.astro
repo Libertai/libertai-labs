@@ -1,0 +1,62 @@
+---
+const groups = [
+  {
+    title: "Product",
+    links: [
+      { label: "libertai.io", href: "https://libertai.io" },
+      { label: "Docs", href: "https://docs.libertai.io" },
+      { label: "Chat", href: "https://chat.libertai.io" },
+    ],
+  },
+  {
+    title: "Open source",
+    links: [
+      { label: "GitHub", href: "https://github.com/Libertai" },
+      { label: "Hugging Face", href: "https://huggingface.co/LibertAIDAI" },
+    ],
+  },
+];
+---
+
+<footer class="border-t border-white/5">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div class="flex flex-col justify-between gap-10 sm:flex-row">
+      <div class="max-w-sm">
+        <a href="/" class="flex items-baseline gap-2">
+          <img src="/logo-white.svg" alt="LibertAI" class="h-4 w-auto translate-y-px" />
+          <span class="font-display text-base text-blush-200">Labs</span>
+        </a>
+        <p class="mt-4 text-sm leading-relaxed text-mist-500">
+          Research, releases and experiments from the team building private,
+          decentralized AI on confidential compute.
+        </p>
+      </div>
+      <div class="flex gap-16">
+        {
+          groups.map((group) => (
+            <div>
+              <p class="text-sm font-semibold text-mist-300">{group.title}</p>
+              <ul class="mt-3 space-y-2">
+                {group.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener"
+                      class="text-sm text-mist-500 transition-colors hover:text-mist-100"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <p class="mt-12 text-xs text-mist-500">
+      LibertAI. Built on Aleph Cloud confidential compute.
+    </p>
+  </div>
+</footer>
