@@ -8,7 +8,7 @@ links:
     href: https://github.com/Libertai/libertai-cli
 ---
 
-`libertai mcp` turns the CLI into a Model Context Protocol server. Any MCP client, including Claude Code, Claude Desktop, Cursor and Cline, can register it with one command and gains two tools: `web_search`, which runs [consensus search](/projects/consensus-search) across web, news, image and academic results, and `fetch_page`, which returns clean readable text for a URL.
+`libertai mcp` turns the CLI into a Model Context Protocol server. Any MCP client, including Claude Code, Claude Desktop, Cursor and Cline, can register it with one command and gains two tools: `web_search`, which runs [consensus search](/projects/consensus-search) across web, news, image and academic results, and `fetch_page`, which returns clean readable text for a URL. Both execute from Aleph Cloud's decentralized network rather than from your machine, so an agent's research leaves no trail from your IP.
 
 The server reuses the API clients and credentials already configured in the CLI, so there is no second key to manage. Search queries are billed per use at the same rates as the API, which keeps an agent's research costs proportional to what it actually does.
 

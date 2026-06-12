@@ -1,10 +1,10 @@
 ---
 title: Ranking web search by cross-engine consensus
 date: 2026-06-10
-summary: Our search API queries Google, Bing and DuckDuckGo in parallel and ranks by agreement. Here is why consensus beats any single engine for agents, and what we deliberately never store.
+summary: Our search API queries Google, Bing and DuckDuckGo in parallel from Aleph Cloud's decentralized network and ranks by agreement. Here is why consensus beats any single engine for agents, and what we never store.
 ---
 
-We have been running a web search API in production for months as the backend for `libertai search` and our agents' research tools. Its ranking model is simple to state: query three engines in parallel, deduplicate by URL, and score each result by how many engines returned it and how highly they placed it. A link that all three engines surface outranks the top hit of any single one.
+We have been running a web search API in production for months as the backend for `libertai search` and our agents' research tools. The work is done by worker VMs on [Aleph Cloud](https://aleph.cloud), the same decentralized compute network that runs our confidential inference, spread across North America, Europe and Asia. The ranking model is simple to state: query three engines in parallel, deduplicate by URL, and score each result by how many engines returned it and how highly they placed it. A link that all three engines surface outranks the top hit of any single one.
 
 ## Why agreement is a signal
 
@@ -14,7 +14,7 @@ For human searching, single-engine results are usually good enough. Agents chang
 
 ## The privacy half
 
-Queries reach the engines from LibertAI infrastructure, never from your machine, so no engine can associate a query with you. We keep no search history attached to a person and build no profiles. Agent queries deserve this more than human ones, because an agent's search trail spells out its owner's intentions far more explicitly than a person typing keywords ever would.
+Queries and page fetches originate from the decentralized network, never from your machine, so no engine or website can associate a request with you. There is also no central search datacenter on our side to subpoena or breach, because the workers are distributed and hold no history. We keep no search log attached to a person and build no profiles. Agent queries deserve this more than human ones, because an agent's search trail spells out its owner's intentions far more explicitly than a person typing keywords ever would.
 
 Payment works the same way as the rest of our APIs: shared credits, or per-query x402 micropayments starting at $0.002, which lets an agent pay for exactly the searches it runs with no account at all.
 
