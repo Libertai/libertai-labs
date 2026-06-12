@@ -12,7 +12,7 @@ links:
 
 NVFP4 is NVIDIA's 4-bit floating point format. Blackwell GPUs execute NVFP4 matrix multiplication directly in their tensor cores, and llama.cpp gained support for the format in 2026. We publish GGUF builds that preserve the calibrated NVFP4 feed-forward tensors from NVIDIA ModelOpt sources and quantize the remaining weights to Q8_0 or Q4_K_M, plus safetensors builds for vLLM, SGLang and TensorRT-LLM.
 
-The claim we make is deliberately modest. On dense models, our NVFP4 builds match stock K-quants on end-to-end throughput and gain 5 to 14% on generation throughput on an RTX 5090. On mixture-of-experts models the heavily tuned stock kernels still win, and the model cards say so. The full methodology, including the benchmark number we had to correct, is in [the writeup](/notes/nvfp4-gguf-on-blackwell).
+The claim we make is deliberately modest. On dense models, our NVFP4 builds match stock K-quants on end-to-end throughput and gain 5 to 14% on generation throughput on an RTX 5090. On mixture-of-experts models the heavily tuned stock kernels won until June 2026, when upstream optimization flipped the result: our Nex-N2-mini NVFP4 build now wins batched serving by 3 to 5% while stock keeps a small single-stream edge, and the model cards say both. The consolidated numbers across all five models are in [the performance writeup](/notes/nvfp4-performance), and the original methodology, including the benchmark number we had to correct, is in [the launch writeup](/notes/nvfp4-gguf-on-blackwell).
 
 ## Releases
 
@@ -28,7 +28,8 @@ Download counts are from June 2026.
 | [Gemma-4-12B-IT-NVFP4-GGUF](https://huggingface.co/LibertAIDAI/Gemma-4-12B-IT-NVFP4-GGUF) | Dense 12B | 1,790 |
 | [Gemma-4-31B-IT-NVFP4-GGUF](https://huggingface.co/LibertAIDAI/Gemma-4-31B-IT-NVFP4-GGUF) | Dense 31B multimodal | 1,587 |
 | [Gemma-4-12B-IT-NVFP4](https://huggingface.co/LibertAIDAI/Gemma-4-12B-IT-NVFP4) | Safetensors for vLLM and TensorRT-LLM | 1,322 |
-| [Nex-N2-mini-NVFP4-GGUF](https://huggingface.co/LibertAIDAI/Nex-N2-mini-NVFP4-GGUF) | Released June 12, 2026 | new |
+| [Nex-N2-mini-NVFP4-GGUF](https://huggingface.co/LibertAIDAI/Nex-N2-mini-NVFP4-GGUF) | MoE 35B (3B active), NVFP4 experts, fixed chat template | new |
+| [Nex-N2-mini-GGUF](https://huggingface.co/LibertAIDAI/Nex-N2-mini-GGUF) | Imatrix K-quants with the fixed chat template, any GPU | new |
 
 ## What is in each GGUF repo
 
