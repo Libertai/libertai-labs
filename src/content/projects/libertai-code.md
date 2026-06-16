@@ -6,6 +6,8 @@ order: 3
 image: /illustrations/libertai-code.webp
 imageAlt: Dark developer workspace with terminal panels, command timeline, and secure compute enclave
 links:
+  - label: Product site
+    href: https://code.libertai.io
   - label: CLI repo
     href: https://github.com/Libertai/libertai-cli
 ---
