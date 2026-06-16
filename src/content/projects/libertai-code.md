@@ -3,6 +3,8 @@ title: LibertAI Code
 summary: A coding agent for the terminal and desktop that runs open models on confidential, TEE-backed inference, with no training on your code.
 status: shipped
 order: 3
+image: /illustrations/libertai-code.webp
+imageAlt: Dark developer workspace with terminal panels, command timeline, and secure compute enclave
 links:
   - label: CLI repo
     href: https://github.com/Libertai/libertai-cli

@@ -3,6 +3,8 @@ title: MCP server
 summary: A Model Context Protocol server built into the CLI that gives Claude Code, Cursor, Cline and any other MCP client access to consensus web search.
 status: shipped
 order: 5
+image: /illustrations/mcp-server.webp
+imageAlt: Protocol hub connecting AI client surfaces to private search and page fetch tools
 links:
   - label: CLI repo
     href: https://github.com/Libertai/libertai-cli

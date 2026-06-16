@@ -3,6 +3,8 @@ title: Avatar
 summary: A browser avatar you can talk to, combining a 3D stage, browser speech APIs and LibertAI chat completions, with conversations kept in your browser.
 status: experiment
 order: 6
+image: /illustrations/avatar.webp
+imageAlt: Abstract glass browser avatar with speech waveforms and local privacy controls
 links:
   - label: GitHub
     href: https://github.com/Libertai/libertai-avatar

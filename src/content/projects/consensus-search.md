@@ -3,6 +3,8 @@ title: Consensus web search
 summary: A search API that queries Google, Bing and DuckDuckGo in parallel from Aleph Cloud's decentralized network and ranks results by cross-engine agreement.
 status: shipped
 order: 2
+image: /illustrations/consensus-search.webp
+imageAlt: Three private search result streams merging into a ranked consensus signal
 links:
   - label: API docs
     href: https://docs.libertai.io/apis/search/
