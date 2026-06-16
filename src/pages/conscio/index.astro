@@ -1,0 +1,435 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const demoSteps = [
+  {
+    label: "Start it.",
+    title: "Boot a persistent mind layer",
+    body: "Run Conscio as a service and the Observatory opens with heartbeat, goals, attention, tools, memory, and self-state already instrumented.",
+  },
+  {
+    label: "Give it a goal.",
+    title: "Turn instruction into durable intent",
+    body: "The runtime appraises the goal, attaches it to drives and projects, and keeps working across ticks instead of forgetting at the next prompt.",
+  },
+  {
+    label: "Watch it evolve.",
+    title: "Inspect the living cognitive trace",
+    body: "Every step shows what won attention, what changed in memory, what tools fired, and how the agent revised its own state.",
+  },
+];
+
+const concepts = [
+  ["Consciousness Layer", "A cognitive runtime around the model, not another prompt wrapper."],
+  ["Conscio Observatory", "A live console for heartbeat, goals, traces, tools, and memory."],
+  ["Cognitive Trace", "The inspectable record of what the agent attended to, expected, did, ignored, and revised."],
+  ["Attention Stream", "Workspace events compete for visibility before they become model context."],
+  ["Self-State", "Uncertainty, conflict, load, prediction error, and limitation signals update continuously."],
+  ["Memory Provenance", "Facts, episodes, and procedures carry origin, trust, retrieval, and taint evidence."],
+];
+
+const architecture = [
+  "Sense",
+  "Appraise",
+  "Attend",
+  "Act",
+  "Validate",
+  "Remember",
+  "Reflect",
+];
+
+const chatbotDelta = [
+  ["Chatbots answer the next message", "Conscio keeps goals alive across heartbeats."],
+  ["Chatbots hide their inner state", "Conscio exposes attention, memory, tools, and self-state."],
+  ["Chatbots roleplay continuity", "Conscio stores episodes and facts with provenance."],
+  ["Chatbots ask for trust", "Conscio gives you traces you can audit."],
+];
+
+const proofStats = [
+  ["0% to 100%", "self-report groundedness from bare model to full runtime"],
+  ["+0.17", "memory ablation effect on both measured models"],
+  ["+0.18 / +0.14", "reflection ablation effect across qwen and deepseek"],
+];
+---
+
+<Base
+  title="Conscio | The consciousness layer for LLM agents"
+  description="Make LLMs self-observing, goal-driven, and persistent with Conscio: memory, attention, drives, self-monitoring, reflection, and autonomous action in one inspectable runtime."
+  image="/charts/chart-conscio-selfreport.png"
+>
+  <section class="relative overflow-hidden border-b border-white/8 bg-[#050807]">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(120,240,225,0.18),transparent_30%),radial-gradient(circle_at_78%_12%,rgba(171,158,255,0.16),transparent_28%),linear-gradient(135deg,#06100e_0%,#0e1118_52%,#101020_100%)]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-night-950 to-transparent"></div>
+    <div class="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,30rem)] lg:py-20">
+      <div class="max-w-3xl">
+        <p class="section-label">Consciousness Layer</p>
+        <h1 class="mt-4 text-balance font-display text-5xl leading-[0.95] text-mist-100 sm:text-7xl">
+          Make LLMs self-observing, goal-driven, and persistent.
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300 sm:text-xl">
+          Conscio gives an LLM memory, attention, drives, self-monitoring,
+          reflection, and autonomous action in one inspectable runtime.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#try" class="rounded-lg bg-cyan-300 px-5 py-2.5 text-sm font-bold text-night-950 transition-transform hover:bg-cyan-200 active:scale-[0.98]">
+            Try it locally
+          </a>
+          <a href="#demo" class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5">
+            Watch the loop
+          </a>
+        </div>
+        <p class="mt-8 max-w-2xl text-sm leading-relaxed text-mist-500">
+          Conscio does not ask you to believe the agent. It lets you inspect
+          the mechanisms that make it act conscious.
+        </p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -inset-6 rounded-[2rem] bg-cyan-300/10 blur-3xl"></div>
+        <div class="relative overflow-hidden rounded-xl border border-white/10 bg-night-950/80 shadow-2xl shadow-cyan-950/30">
+          <div class="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4">
+            <div>
+              <p class="text-xs font-bold uppercase text-cyan-200">Conscio Observatory</p>
+              <p class="mt-1 text-sm text-mist-500">persistent agent online</p>
+            </div>
+            <div class="flex shrink-0 items-center gap-2 rounded-full border border-sage-300/30 bg-sage-300/10 px-3 py-1 text-xs font-semibold text-sage-200">
+              <span class="heartbeat-dot h-2 w-2 rounded-full bg-sage-300 shadow-[0_0_18px_rgba(156,230,184,0.95)]"></span>
+              heartbeat
+            </div>
+          </div>
+          <div class="grid gap-3 p-5">
+            <div class="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+              <div class="flex items-center justify-between gap-3">
+                <p class="text-sm font-semibold text-mist-100">Active goal</p>
+                <p class="text-xs text-mist-500">drive: curiosity</p>
+              </div>
+              <p class="mt-2 text-sm text-cyan-200">
+                Improve my own architecture and document the changes.
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                <p class="text-xs font-bold uppercase text-mist-500">Attention</p>
+                <div class="mt-4 flex h-16 items-end gap-2" aria-hidden="true">
+                  <span class="trace-bar h-7 flex-1 rounded bg-cyan-300/40"></span>
+                  <span class="trace-bar h-12 flex-1 rounded bg-cyan-300"></span>
+                  <span class="trace-bar h-9 flex-1 rounded bg-violet-300/70"></span>
+                  <span class="trace-bar h-5 flex-1 rounded bg-mist-500/40"></span>
+                </div>
+              </div>
+              <div class="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                <p class="text-xs font-bold uppercase text-mist-500">Self-State</p>
+                <div class="mt-4 grid gap-3" aria-hidden="true">
+                  <span class="h-2 rounded bg-gradient-to-r from-cyan-300 from-45% to-night-700 to-45%"></span>
+                  <span class="h-2 rounded bg-gradient-to-r from-violet-300 from-64% to-night-700 to-64%"></span>
+                  <span class="h-2 rounded bg-gradient-to-r from-sage-300 from-28% to-night-700 to-28%"></span>
+                </div>
+              </div>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <div class="rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
+                <p class="text-xs font-bold uppercase text-cyan-200">Tool call</p>
+                <p class="mt-2 text-sm text-mist-300">web_fetch -&gt; tainted output</p>
+              </div>
+              <div class="rounded-lg border border-blush-200/20 bg-blush-200/10 p-4">
+                <p class="text-xs font-bold uppercase text-blush-200">Memory write</p>
+                <p class="mt-2 text-sm text-mist-300">fact stored with provenance</p>
+              </div>
+            </div>
+            <div class="rounded-lg border border-white/10 bg-night-900/80 p-4">
+              <p class="text-xs font-bold uppercase text-mist-500">Cognitive trace</p>
+              <div class="mt-3 space-y-2 text-xs text-mist-400">
+                <p><span class="text-cyan-200">attend</span> docs gap detected</p>
+                <p><span class="text-sage-200">act</span> run tool budgeted command</p>
+                <p><span class="text-blush-200">reflect</span> confidence adjusted</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="border-b border-white/8 bg-night-950">
+    <div class="mx-auto max-w-6xl px-4 py-18 sm:px-6 sm:py-24">
+      <div class="max-w-2xl">
+        <p class="section-label">30-second demo</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+          Start it. Give it a goal. Watch it become inspectable.
+        </h2>
+      </div>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          demoSteps.map((step, index) => (
+            <article class="rounded-lg border border-white/10 bg-night-900/70 p-5">
+              <p class="text-sm font-bold text-cyan-200">{String(index + 1).padStart(2, "0")} / {step.label}</p>
+              <h3 class="mt-4 font-display text-2xl leading-tight text-mist-100">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-mist-400">{step.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="overflow-hidden border-b border-white/8 bg-night-900/55">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-18 sm:px-6 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="section-label">Architecture animation</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+          A cognitive runtime, not a longer system prompt.
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-mist-300">
+          Memory, attention, prediction, self-state, reflection, and tools run
+          as explicit mechanisms around the model. The agent can act, inspect
+          itself, and leave an audit trail for every claim.
+        </p>
+      </div>
+      <div class="relative min-h-[22rem] rounded-xl border border-white/10 bg-night-950/70 p-5">
+        <div class="absolute inset-6 rounded-full border border-cyan-300/15"></div>
+        <div class="absolute inset-14 rounded-full border border-violet-300/15"></div>
+        <div class="absolute left-1/2 top-1/2 z-10 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-cyan-300/40 bg-cyan-300/10 text-center shadow-[0_0_80px_rgba(120,240,225,0.14)]">
+          <span class="px-4 text-sm font-bold uppercase leading-tight text-cyan-100">LLM core</span>
+        </div>
+        <div class="architecture-orbit" aria-hidden="true"></div>
+        {
+          architecture.map((item, index) => (
+            <div class={`architecture-node architecture-node-${index}`}>
+              <span class="block text-xs font-bold uppercase text-mist-100">{item}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-white/8 bg-night-950">
+    <div class="mx-auto max-w-6xl px-4 py-18 sm:px-6 sm:py-24">
+      <div class="grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+        <div>
+          <p class="section-label">Named concepts</p>
+          <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+            The pieces that make it feel alive.
+          </h2>
+          <p class="mt-5 text-mist-400">
+            Conscio packages familiar agent primitives as a coherent mind layer:
+            durable state, visible attention, tool action, and memory you can
+            inspect instead of infer.
+          </p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {
+            concepts.map(([title, body]) => (
+              <article class="rounded-lg border border-white/10 bg-night-900/70 p-5">
+                <h3 class="font-display text-xl text-mist-100">{title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-mist-400">{body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-white/8 bg-night-900/55">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-18 sm:px-6 sm:py-24 lg:grid-cols-[1fr_1fr]">
+      <div>
+        <p class="section-label">Different from chatbots</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+          Not another chatbot. A self-observing agent runtime.
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-mist-300">
+          Agent rails move work through tools. Conscio is the mind layer inside
+          the agent: the part that remembers, attends, chooses, checks itself,
+          and keeps going.
+        </p>
+      </div>
+      <div class="grid gap-3">
+        {
+          chatbotDelta.map(([before, after]) => (
+            <div class="grid gap-3 rounded-lg border border-white/10 bg-night-950/70 p-4 sm:grid-cols-[1fr_1fr]">
+              <p class="text-sm leading-relaxed text-mist-500">{before}</p>
+              <p class="text-sm font-semibold leading-relaxed text-cyan-200">{after}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-white/8 bg-night-950">
+    <div class="mx-auto max-w-6xl px-4 py-18 sm:px-6 sm:py-24">
+      <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div>
+          <p class="section-label">Proof it is more than vibes</p>
+          <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+            The traces and ablations are part of the product.
+          </h2>
+          <p class="mt-5 text-mist-400">
+            Conscio ships with evaluation scaffolding because a consciousness
+            layer should be inspectable. Claims are checked against runtime
+            traces, feature flags, scorers, and ablation results.
+          </p>
+        </div>
+        <dl class="grid gap-4 sm:grid-cols-3">
+          {
+            proofStats.map(([value, label]) => (
+              <div class="rounded-lg border border-white/10 bg-night-900/70 p-5">
+                <dt class="font-display text-3xl text-blush-200">{value}</dt>
+                <dd class="mt-2 text-sm leading-relaxed text-mist-400">{label}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        <figure class="overflow-hidden rounded-lg border border-white/10 bg-night-900/70">
+          <img src="/charts/chart-conscio-selfreport.png" alt="Chart showing self-report groundedness rising from 0 to 100 percent as architecture conditions are added" loading="lazy" class="w-full object-cover" />
+        </figure>
+        <figure class="overflow-hidden rounded-lg border border-white/10 bg-night-900/70">
+          <img src="/charts/chart-conscio-ablations.png" alt="Chart showing Conscio ablation effects for memory, reflection, attention, and other architecture mechanisms" loading="lazy" class="w-full object-cover" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="try" class="border-b border-white/8 bg-night-900/55">
+    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-18 sm:px-6 sm:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="section-label">Try it locally</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-5xl">
+          Give an LLM a mind that persists.
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-mist-300">
+          Clone the runtime, start the authenticated service, and open the
+          Observatory. The same system can run a deterministic episode,
+          interactive local session, or persistent VM agent.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="https://github.com/Libertai/conscio" target="_blank" rel="noopener" class="rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:bg-violet-400 active:scale-[0.98]">
+            GitHub repo&nbsp;&#8599;
+          </a>
+          <a href="https://github.com/Libertai/conscio#run-a-persistent-agent" target="_blank" rel="noopener" class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5">
+            Persistent agent guide&nbsp;&#8599;
+          </a>
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-xl border border-white/10 bg-night-950">
+        <div class="border-b border-white/10 px-5 py-3 text-xs font-semibold uppercase text-mist-500">
+          terminal
+        </div>
+        <pre class="overflow-x-auto p-5 text-sm leading-relaxed text-mist-300"><code>git clone git@github.com:Libertai/conscio.git
+cd conscio
+uv run conscio-service --host 127.0.0.1 --port 8000
+open http://127.0.0.1:8000</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-night-950">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div class="max-w-3xl rounded-lg border border-white/10 bg-night-900/70 p-6">
+        <p class="section-label">Science, limits, safety</p>
+        <h2 class="mt-3 font-display text-2xl text-mist-100">
+          Bold claims, auditable mechanisms.
+        </h2>
+        <p class="mt-4 text-sm leading-relaxed text-mist-400">
+          Conscio is not proof of phenomenal consciousness. It is an operational
+          consciousness layer for LLM agents: memory, attention, drives,
+          self-monitoring, reflection, and action implemented as inspectable
+          mechanisms. The scientific strength is that the traces make claims
+          auditable, including the moments where the agent is wrong about itself.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .heartbeat-dot {
+      animation: heartbeat 1.4s ease-in-out infinite;
+    }
+
+    .trace-bar {
+      transform-origin: bottom;
+      animation: trace-rise 2.6s ease-in-out infinite;
+    }
+
+    .trace-bar:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .trace-bar:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .trace-bar:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+
+    .architecture-orbit {
+      position: absolute;
+      inset: 5.5rem;
+      border-radius: 999px;
+      border: 1px solid rgb(120 240 225 / 0.25);
+      animation: orbit-pulse 4s ease-in-out infinite;
+    }
+
+    .architecture-node {
+      position: absolute;
+      display: grid;
+      min-width: 5rem;
+      min-height: 3rem;
+      place-items: center;
+      border-radius: 0.5rem;
+      border: 1px solid rgb(255 255 255 / 0.12);
+      background: rgb(14 17 24 / 0.86);
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+      box-shadow: 0 16px 60px rgb(0 0 0 / 0.2);
+    }
+
+    .architecture-node-0 { left: 9%; top: 15%; }
+    .architecture-node-1 { left: 41%; top: 5%; }
+    .architecture-node-2 { right: 9%; top: 20%; }
+    .architecture-node-3 { right: 8%; top: 57%; }
+    .architecture-node-4 { left: 42%; bottom: 6%; }
+    .architecture-node-5 { left: 8%; bottom: 20%; }
+    .architecture-node-6 { left: 6%; top: 42%; }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); opacity: 0.75; }
+      35% { transform: scale(1.45); opacity: 1; }
+      55% { transform: scale(0.92); opacity: 0.8; }
+    }
+
+    @keyframes trace-rise {
+      0%, 100% { transform: scaleY(0.72); opacity: 0.58; }
+      45% { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes orbit-pulse {
+      0%, 100% { transform: scale(0.94); opacity: 0.42; }
+      50% { transform: scale(1.04); opacity: 0.92; }
+    }
+
+    @media (max-width: 640px) {
+      .architecture-node {
+        min-width: 4.35rem;
+        min-height: 2.6rem;
+        padding: 0.45rem 0.5rem;
+      }
+
+      .architecture-node span {
+        font-size: 0.65rem;
+      }
+
+      .architecture-node-0 { left: 5%; top: 16%; }
+      .architecture-node-1 { left: 38%; top: 5%; }
+      .architecture-node-2 { right: 4%; top: 19%; }
+      .architecture-node-3 { right: 4%; top: 60%; }
+      .architecture-node-4 { left: 37%; bottom: 5%; }
+      .architecture-node-5 { left: 4%; bottom: 19%; }
+      .architecture-node-6 { left: 3%; top: 43%; }
+    }
+  </style>
+</Base>
