@@ -7,7 +7,9 @@ const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const notes = (await getCollection("notes")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  (a, b) =>
+    b.data.date.valueOf() - a.data.date.valueOf() ||
+    a.data.title.localeCompare(b.data.title),
 );
 
 const spans = [
@@ -19,10 +21,31 @@ const spans = [
   "md:col-span-6",
 ];
 
-const stats = [
+const heroStats = [
+  { value: `${projects.length}`, label: "active projects" },
+  { value: `${notes.length}`, label: "technical notes" },
+  { value: "24k+", label: "model downloads" },
+];
+
+const modelStats = [
   { value: "9", label: "model repos" },
-  { value: "24,000+", label: "downloads" },
+  { value: "24k+", label: "downloads" },
   { value: "5", label: "base models" },
+];
+
+const labTracks = [
+  {
+    title: "Model releases",
+    body: "Open weights, quantization notes and reproducible benchmark context.",
+  },
+  {
+    title: "Agent systems",
+    body: "Runtime experiments, evaluation harnesses and tool interfaces for private agents.",
+  },
+  {
+    title: "Infrastructure",
+    body: "Search, confidential compute and payment primitives that support the product stack.",
+  },
 ];
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -30,58 +53,108 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "short",
   day: "numeric",
 });
+
+const latestNote = notes[0];
 ---
 
 <Base
   title="LibertAI Labs"
   description="Model releases, benchmarks, agent experiments and infrastructure writeups from the team building private, decentralized AI."
 >
-  <section class="relative overflow-hidden border-b border-white/5">
+  <section class="relative overflow-hidden border-b border-white/8">
     <img
       src="/hero.png"
       alt=""
-      class="absolute inset-0 h-full w-full object-cover object-right"
+      class="absolute inset-0 h-full w-full object-cover object-[62%_center] sm:object-right"
       fetchpriority="high"
     />
     <div
-      class="absolute inset-0 bg-gradient-to-r from-night-900 from-25% via-night-900/80 to-night-900/10"
+      class="absolute inset-0 bg-gradient-to-r from-night-950 from-20% via-night-950/88 to-night-950/20"
     >
     </div>
-    <div class="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
-      <div class="max-w-xl">
+    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:py-28">
+      <div class="max-w-2xl">
+        <p class="section-label">Research notes, model releases, agent systems</p>
         <h1
-          class="font-display text-4xl leading-[1.08] tracking-tight text-mist-100 sm:text-5xl"
+          class="mt-4 font-display text-4xl leading-none text-mist-100 sm:text-6xl"
         >
-          Open research from the LibertAI team
+          LibertAI Labs
         </h1>
-        <p class="mt-5 max-w-md text-lg leading-relaxed text-mist-300">
-          Model releases, benchmarks, agent experiments and infrastructure
-          writeups, published as we build private, decentralized AI.
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-mist-300 sm:text-xl">
+          Public workbench for the models, benchmarks, agent experiments and
+          infrastructure notes behind private, decentralized AI.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a
             href="#projects"
-            class="rounded-full bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white transition-transform active:scale-[0.98]"
+            class="rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:bg-violet-400 active:scale-[0.98]"
           >
-            See the projects
+            See projects
           </a>
           <a
             href="#notes"
-            class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30"
+            class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
           >
-            Read the notes
+            Read notes
           </a>
         </div>
+        <dl class="mt-10 grid max-w-lg grid-cols-3 overflow-hidden rounded-lg border border-white/10 bg-night-950/65">
+          {
+            heroStats.map((stat) => (
+              <div class="border-r border-white/10 px-4 py-3 last:border-r-0">
+                <dt class="text-xs uppercase text-mist-500">{stat.label}</dt>
+                <dd class="mt-1 font-display text-2xl text-mist-100">{stat.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        {
+          latestNote && (
+            <a
+              href={`/notes/${latestNote.id}`}
+              class="mt-8 block max-w-xl border-l border-cyan-300/50 pl-4 text-left transition-colors hover:border-cyan-200"
+            >
+              <span class="text-xs font-semibold uppercase text-cyan-200">
+                Latest note
+              </span>
+              <span class="mt-1 block text-sm text-mist-300">
+                {latestNote.data.title}
+              </span>
+              <span class="mt-1 block text-xs text-mist-500">
+                {dateFormat.format(latestNote.data.date)}
+              </span>
+            </a>
+          )
+        }
       </div>
     </div>
   </section>
 
+  <section class="border-b border-white/8 bg-night-900/70">
+    <div class="mx-auto grid max-w-6xl gap-4 px-4 py-10 sm:px-6 md:grid-cols-3">
+      {
+        labTracks.map((track) => (
+          <div class="rounded-lg border border-white/10 bg-night-950/45 p-5">
+            <h2 class="font-display text-lg text-mist-100">{track.title}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-mist-400">{track.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
   <section id="projects" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24">
-    <h2 class="font-display text-3xl tracking-tight text-mist-100">Projects</h2>
-    <p class="mt-3 max-w-2xl text-mist-400">
-      Some of these are in production behind api.libertai.io, and some exist to
-      answer a question. The status badge tells you which is which.
-    </p>
+    <div class="max-w-2xl">
+      <p class="section-label">Projects</p>
+      <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">
+        Releases and research tracks
+      </h2>
+      <p class="mt-4 text-mist-400">
+        A mix of shipped surfaces and open experiments. Each card carries its
+        current status so you can separate production work from research
+        vehicles.
+      </p>
+    </div>
     <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-12">
       {
         projects.map((project, i) => (
@@ -96,7 +169,8 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
       class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_auto]"
     >
       <div>
-        <h2 class="font-display text-3xl tracking-tight text-mist-100">
+        <p class="section-label">Open weights</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">
           Open weights on Hugging Face
         </h2>
         <p class="mt-3 max-w-xl text-mist-400">
@@ -108,19 +182,19 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
           href="https://huggingface.co/LibertAIDAI"
           target="_blank"
           rel="noopener"
-          class="mt-6 inline-block rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30"
+          class="mt-6 inline-block rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
         >
           View on Hugging Face&nbsp;&#8599;
         </a>
       </div>
-      <dl class="flex gap-10 sm:gap-14">
+      <dl class="grid gap-4 sm:grid-cols-3 lg:min-w-[24rem]">
         {
-          stats.map((stat) => (
-            <div>
-              <dd class="font-display text-4xl tracking-tight text-blush-200">
+          modelStats.map((stat) => (
+            <div class="rounded-lg border border-white/10 bg-night-950/45 p-5">
+              <dt class="text-sm text-mist-500">{stat.label}</dt>
+              <dd class="mt-2 font-display text-3xl text-blush-200">
                 {stat.value}
               </dd>
-              <dt class="mt-1 text-sm text-mist-500">{stat.label}</dt>
             </div>
           ))
         }
@@ -129,32 +203,40 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   </section>
 
   <section id="notes" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24">
-    <h2 class="font-display text-3xl tracking-tight text-mist-100">Notes</h2>
-    <p class="mt-3 max-w-2xl text-mist-400">
-      Writeups with methodology, the numbers that held up, and the ones that
-      did not.
-    </p>
-    <div class="mt-6">
+    <div class="max-w-2xl">
+      <p class="section-label">Notes</p>
+      <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">
+        Methodology and results
+      </h2>
+      <p class="mt-4 text-mist-400">
+        Writeups with methodology, the numbers that held up, and the ones that
+        did not.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-4">
       {
-        notes.map((note) => (
+        notes.map((note, index) => (
           <a
             href={`/notes/${note.id}`}
-            class="group grid gap-1 border-b border-white/8 py-7 md:grid-cols-[10rem_1fr] md:gap-6"
+            class={`group grid gap-3 rounded-lg border border-white/10 p-5 transition-colors hover:border-white/25 hover:bg-night-800/50 md:grid-cols-[9rem_1fr_auto] md:items-start md:gap-6 ${index === 0 ? "bg-night-800/65" : "bg-night-900/45"}`}
           >
             <time
               datetime={note.data.date.toISOString()}
-              class="pt-1 text-sm text-mist-500"
+              class="text-sm text-mist-500 md:pt-1"
             >
               {dateFormat.format(note.data.date)}
             </time>
             <div>
-              <h3 class="font-display text-xl tracking-tight text-mist-100 transition-colors group-hover:text-violet-300">
+              <h3 class="font-display text-xl leading-tight text-mist-100 transition-colors group-hover:text-cyan-200">
                 {note.data.title}
               </h3>
               <p class="mt-2 max-w-2xl text-sm leading-relaxed text-mist-400">
                 {note.data.summary}
               </p>
             </div>
+            <span class="text-sm font-semibold text-cyan-200 md:pt-1">
+              Read note -&gt;
+            </span>
           </a>
         ))
       }

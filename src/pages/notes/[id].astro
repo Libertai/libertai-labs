@@ -12,7 +12,9 @@ export async function getStaticPaths() {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
-const { title, summary, date } = note.data;
+const { title, summary, date, image, imageAlt } = note.data;
+const wordCount = note.body.trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
@@ -21,26 +23,46 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
 });
 ---
 
-<Base title={`${title} | LibertAI Labs`} description={summary}>
-  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+<Base
+  title={`${title} | LibertAI Labs`}
+  description={summary}
+  image={image ?? "/hero.png"}
+  type="article"
+>
+  <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
     <a
       href="/#notes"
-      class="text-sm text-mist-500 transition-colors hover:text-mist-100"
+      class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
     >
       &larr; All notes
     </a>
-    <time
-      datetime={date.toISOString()}
-      class="mt-8 block text-sm text-mist-500"
-    >
-      {dateFormat.format(date)}
-    </time>
-    <h1 class="mt-3 font-display text-4xl leading-[1.15] tracking-tight text-mist-100">
-      {title}
-    </h1>
-    <p class="mt-4 text-lg leading-relaxed text-mist-300">{summary}</p>
+    <header class="mt-8 max-w-3xl">
+      <p class="section-label">Technical note</p>
+      <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-mist-500">
+        <time datetime={date.toISOString()}>{dateFormat.format(date)}</time>
+        <span aria-hidden="true">/</span>
+        <span>{readingMinutes} min read</span>
+      </div>
+      <h1 class="mt-4 font-display text-4xl leading-tight text-mist-100 sm:text-5xl">
+        {title}
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-mist-300">{summary}</p>
+    </header>
+    {
+      image && (
+        <figure class="mt-10 overflow-hidden rounded-lg border border-white/10 bg-night-900/60">
+          <img
+            src={image}
+            alt={imageAlt ?? ""}
+            class="aspect-[16/9] w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </figure>
+      )
+    }
     <hr class="my-10 border-white/8" />
-    <div class="prose">
+    <div class="prose max-w-3xl">
       <Content />
     </div>
   </article>

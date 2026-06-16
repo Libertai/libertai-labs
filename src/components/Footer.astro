@@ -1,6 +1,13 @@
 ---
 const groups = [
   {
+    title: "Labs",
+    links: [
+      { label: "Projects", href: "/#projects" },
+      { label: "Notes", href: "/#notes" },
+    ],
+  },
+  {
     title: "Product",
     links: [
       { label: "libertai.io", href: "https://libertai.io" },
@@ -16,14 +23,17 @@ const groups = [
     ],
   },
 ];
+
+const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-white/5">
-  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-    <div class="flex flex-col justify-between gap-10 sm:flex-row">
+<footer class="border-t border-white/8 bg-night-950">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
+    <div class="grid gap-10 lg:grid-cols-[1fr_auto]">
       <div class="max-w-sm">
-        <a href="/" class="flex items-baseline gap-2">
+        <a href="/" aria-label="LibertAI Labs home" class="inline-flex items-center gap-2 rounded-md py-2">
           <img src="/logo-white.svg" alt="LibertAI" class="h-4 w-auto translate-y-px" />
+          <span class="h-4 w-px bg-white/15" aria-hidden="true"></span>
           <span class="font-display text-base text-blush-200">Labs</span>
         </a>
         <p class="mt-4 text-sm leading-relaxed text-mist-500">
@@ -31,7 +41,7 @@ const groups = [
           decentralized AI on confidential compute.
         </p>
       </div>
-      <div class="flex gap-16">
+      <div class="grid grid-cols-2 gap-10 sm:grid-cols-3 sm:gap-14">
         {
           groups.map((group) => (
             <div>
@@ -41,8 +51,7 @@ const groups = [
                   <li>
                     <a
                       href={link.href}
-                      target="_blank"
-                      rel="noopener"
+                      {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
                       class="text-sm text-mist-500 transition-colors hover:text-mist-100"
                     >
                       {link.label}
@@ -56,7 +65,7 @@ const groups = [
       </div>
     </div>
     <p class="mt-12 text-xs text-mist-500">
-      LibertAI. Built on Aleph Cloud confidential compute.
+      &copy; {year} LibertAI. Built on Aleph Cloud confidential compute.
     </p>
   </div>
 </footer>

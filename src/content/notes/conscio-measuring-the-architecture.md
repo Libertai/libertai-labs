@@ -2,6 +2,8 @@
 title: "Does the cognitive architecture actually do anything? Measuring Conscio"
 date: 2026-06-12
 summary: We built Conscio around a real per-tick control loop, then measured it with a five-rung baseline ladder, six single-mechanism ablations and a self-report study on two models. Memory and reflection earn their keep, attention gating did not, and the most interesting number is about introspection.
+image: /illustrations/conscio-architecture.webp
+imageAlt: Abstract cognitive architecture with memory panels, attention beams, evaluation gauges and mechanism traces
 ---
 
 [Conscio](/projects/conscio) is our research vehicle for a question that is easy to ask and annoying to answer: if you build an LLM agent as a cognitive architecture, with attention, memory, prediction and goals as inspectable mechanisms instead of prompt roleplay, does any of that structure actually change behavior? Our first internal build had an honest flaw that made the question unanswerable. The modules existed and produced traces, but the language model never saw most of them, and one module quietly ran the whole agent. Auditability without causality is decoration.

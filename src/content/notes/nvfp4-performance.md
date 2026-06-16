@@ -2,6 +2,8 @@
 title: "NVFP4 GGUF performance on Blackwell: the consolidated numbers"
 date: 2026-06-12
 summary: Everything we have measured about NVFP4 GGUF serving across five models, three releases and one kernel generation, including the week the MoE result flipped in NVFP4's favor.
+image: /illustrations/nvfp4-performance.webp
+imageAlt: Dense model blocks and mixture-of-experts clusters feeding a central tensor engine with performance waveforms
 ---
 
 Since May we have published NVFP4 GGUF builds of five models under [LibertAIDAI](https://huggingface.co/LibertAIDAI): Qwen3.6-27B, Qwen3.6-35B-A3B, Gemma-4-31B-IT, Gemma-4-12B-IT and, this week, Nex-N2-mini. Each release came with its own benchmarks, and the picture has changed as llama.cpp's kernels matured. This note consolidates what we have measured so far, because the answer to "is NVFP4 faster" turned out to depend on the model family, the batch size, and the month you asked.

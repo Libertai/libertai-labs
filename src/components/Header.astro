@@ -17,18 +17,23 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-40 border-b border-white/5 bg-night-900/80 backdrop-blur-md">
+<header class="sticky top-0 z-40 border-b border-white/8 bg-night-950/85 backdrop-blur-xl">
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-    <a href="/" class="flex items-baseline gap-2">
+    <a
+      href="/"
+      aria-label="LibertAI Labs home"
+      class="flex min-w-0 items-center gap-2 rounded-md px-1 py-2"
+    >
       <img src="/logo-white.svg" alt="LibertAI" class="h-4 w-auto translate-y-px" />
-      <span class="font-display text-base text-blush-200">Labs</span>
+      <span class="site-header-divider h-4 w-px bg-white/15" aria-hidden="true"></span>
+      <span class="labs-header-label font-display text-base text-blush-200">Labs</span>
     </a>
-    <nav class="flex items-center gap-5 sm:gap-7">
+    <nav aria-label="Primary" class="primary-nav flex items-center gap-4 sm:gap-7">
       {
         links.map((link) => (
           <a
             href={link.href}
-            class={`text-sm text-mist-400 transition-colors hover:text-mist-100 ${link.desktopOnly ? "hidden sm:inline" : ""}`}
+            class={`rounded-md px-1 py-2 text-sm text-mist-400 transition-colors hover:text-mist-100 ${link.desktopOnly ? "hidden sm:inline" : ""}`}
             {...(link.external ? { target: "_blank", rel: "noopener" } : {})}
           >
             {link.label}

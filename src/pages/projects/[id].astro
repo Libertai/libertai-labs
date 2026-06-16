@@ -12,52 +12,78 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, summary, status, links } = project.data;
+const { title, summary, status, links, image, imageAlt } = project.data;
 
-const badgeStyles: Record<string, string> = {
-  shipped: "border-violet-500/40 bg-violet-500/10 text-violet-300",
-  experiment: "border-white/15 text-mist-400",
-  research: "border-blush-200/30 bg-blush-200/5 text-blush-200",
+const statusMeta: Record<string, { label: string; class: string }> = {
+  shipped: {
+    label: "Shipped",
+    class: "border-sage-300/35 bg-sage-300/10 text-sage-200",
+  },
+  experiment: {
+    label: "Experiment",
+    class: "border-cyan-300/35 bg-cyan-300/10 text-cyan-200",
+  },
+  research: {
+    label: "Research",
+    class: "border-blush-200/35 bg-blush-200/10 text-blush-200",
+  },
 };
+
+const meta = statusMeta[status];
 ---
 
-<Base title={`${title} | LibertAI Labs`} description={summary}>
-  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+<Base title={`${title} | LibertAI Labs`} description={summary} image={image ?? "/hero.png"} type="article">
+  <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
     <a
       href="/#projects"
-      class="text-sm text-mist-500 transition-colors hover:text-mist-100"
+      class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
     >
       &larr; All projects
     </a>
-    <div class="mt-8 flex items-center gap-3">
-      <span
-        class={`rounded-full border px-2.5 py-0.5 text-xs ${badgeStyles[status]}`}
-      >
-        {status}
-      </span>
-    </div>
-    <h1 class="mt-4 font-display text-4xl tracking-tight text-mist-100">
-      {title}
-    </h1>
-    <p class="mt-4 text-lg leading-relaxed text-mist-300">{summary}</p>
-    {
-      links.length > 0 && (
-        <div class="mt-6 flex flex-wrap gap-3">
-          {links.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener"
-              class="rounded-full border border-white/15 px-4 py-1.5 text-sm text-mist-100 transition-colors hover:border-white/30"
-            >
-              {link.label}&nbsp;&#8599;
-            </a>
-          ))}
+    <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
+      <header>
+        <p class="section-label">Project</p>
+        <div class="mt-4 flex items-center gap-3">
+          <span
+            class={`rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}
+          >
+            {meta.label}
+          </span>
         </div>
+        <h1 class="mt-4 max-w-3xl font-display text-4xl leading-tight text-mist-100 sm:text-5xl">
+          {title}
+        </h1>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-mist-300">{summary}</p>
+      </header>
+      {
+        links.length > 0 && (
+          <aside class="rounded-lg border border-white/10 bg-night-900/60 p-5">
+            <h2 class="text-sm font-semibold text-mist-300">Links</h2>
+            <div class="mt-4 grid gap-3">
+              {links.map((link) => (
+                <a
+                  href={link.href}
+                  {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+                  class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+                >
+                  {link.label}
+                  {link.href.startsWith("http") && <span aria-hidden="true">&nbsp;&#8599;</span>}
+                </a>
+              ))}
+            </div>
+          </aside>
+        )
+      }
+    </div>
+    {
+      image && (
+        <figure class="mt-10 overflow-hidden rounded-lg border border-white/10 bg-night-900/60">
+          <img src={image} alt={imageAlt ?? ""} class="w-full object-cover" />
+        </figure>
       )
     }
     <hr class="my-10 border-white/8" />
-    <div class="prose">
+    <div class="prose max-w-3xl">
       <Content />
     </div>
   </article>

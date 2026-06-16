@@ -2,6 +2,8 @@
 title: "Multi-token prediction on NVFP4 quants: a win, and a break-even"
 date: 2026-05-26
 summary: We added MTP draft-head variants of the Qwen3.6 NVFP4 builds. The dense 27B gains 22% generation throughput, the MoE gains nothing yet, and both model cards say so.
+image: /illustrations/mtp-nvfp4.webp
+imageAlt: Draft token blocks branching through a verification gate into accepted token paths on a dark tensor compute surface
 ---
 
 Shortly after our NVFP4 launch, llama.cpp shipped multi-token prediction support for Qwen3.6 ([PR #22673](https://github.com/ggml-org/llama.cpp/pull/22673)) along with NVFP4 scale-tensor support for the MTP block ([PR #23563](https://github.com/ggml-org/llama.cpp/pull/23563)). MTP lets the model draft several tokens per step and verify them in one pass, which is the same bet as speculative decoding but with a draft head the model was trained with.

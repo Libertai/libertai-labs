@@ -2,6 +2,8 @@
 title: "NVFP4 GGUF on Blackwell: what the benchmarks actually show"
 date: 2026-05-26
 summary: We shipped NVFP4 GGUF quants of three flagship multimodal models and benchmarked them against stock K-quants on an RTX 5090. Dense models win, MoE does not yet, and one number had to be re-run.
+image: /illustrations/nvfp4-blackwell.webp
+imageAlt: Stylized Blackwell tensor hardware with calibrated quantized weight blocks and symmetrical benchmark lanes
 ---
 
 NVFP4 is NVIDIA's 4-bit floating point format: an E2M1 mantissa with FP8 block scales over 16-element groups, executed natively by Blackwell tensor cores. Support landed in llama.cpp through [PR #22196](https://github.com/ggml-org/llama.cpp/pull/22196), and we wanted to know what it is actually worth for serving, measured rather than assumed.

@@ -6,9 +6,13 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description: string;
+  image?: string;
+  type?: "website" | "article";
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = "/hero.png", type = "website" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -18,7 +22,9 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#08090f" />
     <link
       rel="preload"
       href="/fonts/Satoshi-Medium.woff2"
@@ -35,12 +41,18 @@ const { title, description } = Astro.props;
     />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL("/hero.png", Astro.site)} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
   </head>
-  <body class="bg-night-900 font-sans text-mist-100 antialiased">
+  <body class="min-h-screen bg-night-950 font-sans text-mist-100 antialiased">
+    <a href="#content" class="skip-link">Skip to content</a>
     <Header />
-    <main>
+    <main id="content" tabindex="-1">
       <slot />
     </main>
     <Footer />
