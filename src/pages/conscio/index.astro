@@ -1,5 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
+import SelfReportChart from "../../components/charts/SelfReportChart.astro";
+import AblationsChart from "../../components/charts/AblationsChart.astro";
+import CognitiveLoop from "../../components/CognitiveLoop.astro";
 
 const demoSteps = [
   {
@@ -28,16 +31,6 @@ const concepts = [
   ["Memory Provenance", "Facts, episodes, and procedures carry origin, trust, retrieval, and taint evidence."],
 ];
 
-const architecture = [
-  "Sense",
-  "Appraise",
-  "Attend",
-  "Act",
-  "Validate",
-  "Remember",
-  "Reflect",
-];
-
 const chatbotDelta = [
   ["Chatbots answer the next message", "Conscio keeps goals alive across heartbeats."],
   ["Chatbots hide their inner state", "Conscio exposes attention, memory, tools, and self-state."],
@@ -58,8 +51,9 @@ const proofStats = [
   image="/charts/chart-conscio-selfreport.png"
 >
   <section class="relative overflow-hidden border-b border-white/8 bg-[#050807]">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(120,240,225,0.18),transparent_30%),radial-gradient(circle_at_78%_12%,rgba(171,158,255,0.16),transparent_28%),linear-gradient(135deg,#06100e_0%,#0e1118_52%,#101020_100%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(0,210,201,0.18),transparent_30%),radial-gradient(circle_at_78%_12%,rgba(171,158,255,0.16),transparent_28%),linear-gradient(135deg,#06100e_0%,#0e1118_52%,#101020_100%)]"></div>
     <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-night-950 to-transparent"></div>
+    <div class="grain-overlay" aria-hidden="true"></div>
     <div class="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,30rem)] lg:py-20">
       <div class="max-w-3xl">
         <p class="section-label">Consciousness Layer</p>
@@ -92,8 +86,8 @@ const proofStats = [
               <p class="text-xs font-bold uppercase text-cyan-200">Conscio Observatory</p>
               <p class="mt-1 text-sm text-mist-500">persistent agent online</p>
             </div>
-            <div class="flex shrink-0 items-center gap-2 rounded-full border border-sage-300/30 bg-sage-300/10 px-3 py-1 text-xs font-semibold text-sage-200">
-              <span class="heartbeat-dot h-2 w-2 rounded-full bg-sage-300 shadow-[0_0_18px_rgba(156,230,184,0.95)]"></span>
+            <div class="flex shrink-0 items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">
+              <span class="heartbeat-dot h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(0,210,201,0.95)]"></span>
               heartbeat
             </div>
           </div>
@@ -122,7 +116,7 @@ const proofStats = [
                 <div class="mt-4 grid gap-3" aria-hidden="true">
                   <span class="h-2 rounded bg-gradient-to-r from-cyan-300 from-45% to-night-700 to-45%"></span>
                   <span class="h-2 rounded bg-gradient-to-r from-violet-300 from-64% to-night-700 to-64%"></span>
-                  <span class="h-2 rounded bg-gradient-to-r from-sage-300 from-28% to-night-700 to-28%"></span>
+                  <span class="h-2 rounded bg-gradient-to-r from-cyan-300 from-28% to-night-700 to-28%"></span>
                 </div>
               </div>
             </div>
@@ -131,8 +125,8 @@ const proofStats = [
                 <p class="text-xs font-bold uppercase text-cyan-200">Tool call</p>
                 <p class="mt-2 text-sm text-mist-300">web_fetch -&gt; tainted output</p>
               </div>
-              <div class="rounded-lg border border-blush-200/20 bg-blush-200/10 p-4">
-                <p class="text-xs font-bold uppercase text-blush-200">Memory write</p>
+              <div class="rounded-lg border border-violet-300/20 bg-violet-300/10 p-4">
+                <p class="text-xs font-bold uppercase text-violet-300">Memory write</p>
                 <p class="mt-2 text-sm text-mist-300">fact stored with provenance</p>
               </div>
             </div>
@@ -140,8 +134,8 @@ const proofStats = [
               <p class="text-xs font-bold uppercase text-mist-500">Cognitive trace</p>
               <div class="mt-3 space-y-2 text-xs text-mist-400">
                 <p><span class="text-cyan-200">attend</span> docs gap detected</p>
-                <p><span class="text-sage-200">act</span> run tool budgeted command</p>
-                <p><span class="text-blush-200">reflect</span> confidence adjusted</p>
+                <p><span class="text-cyan-200">act</span> run tool budgeted command</p>
+                <p><span class="text-violet-300">reflect</span> confidence adjusted</p>
               </div>
             </div>
           </div>
@@ -185,21 +179,7 @@ const proofStats = [
           itself, and leave an audit trail for every claim.
         </p>
       </div>
-      <div class="relative min-h-[22rem] rounded-xl border border-white/10 bg-night-950/70 p-5">
-        <div class="absolute inset-6 rounded-full border border-cyan-300/15"></div>
-        <div class="absolute inset-14 rounded-full border border-violet-300/15"></div>
-        <div class="absolute left-1/2 top-1/2 z-10 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-cyan-300/40 bg-cyan-300/10 text-center shadow-[0_0_80px_rgba(120,240,225,0.14)]">
-          <span class="px-4 text-sm font-bold uppercase leading-tight text-cyan-100">LLM core</span>
-        </div>
-        <div class="architecture-orbit" aria-hidden="true"></div>
-        {
-          architecture.map((item, index) => (
-            <div class={`architecture-node architecture-node-${index}`}>
-              <span class="block text-xs font-bold uppercase text-mist-100">{item}</span>
-            </div>
-          ))
-        }
-      </div>
+      <CognitiveLoop />
     </div>
   </section>
 
@@ -275,19 +255,81 @@ const proofStats = [
           {
             proofStats.map(([value, label]) => (
               <div class="rounded-lg border border-white/10 bg-night-900/70 p-5">
-                <dt class="font-display text-3xl text-blush-200">{value}</dt>
+                <dt class="font-display text-3xl text-violet-300">{value}</dt>
                 <dd class="mt-2 text-sm leading-relaxed text-mist-400">{label}</dd>
               </div>
             ))
           }
         </dl>
       </div>
-      <div class="mt-10 grid gap-5 lg:grid-cols-2">
-        <figure class="overflow-hidden rounded-lg border border-white/10 bg-night-900/70">
-          <img src="/charts/chart-conscio-selfreport.png" alt="Chart showing self-report groundedness rising from 0 to 100 percent as architecture conditions are added" loading="lazy" class="w-full object-cover" />
+      <div class="mt-10 grid gap-5">
+        <figure class="m-0 overflow-hidden rounded-xl border border-white/10 bg-night-900/70 p-6">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="font-display font-bold text-mist-100">Libert<span class="italic">AI</span></span>
+            <span class="font-display text-mist-500">Labs</span>
+          </div>
+          <h3 class="mt-3 font-display text-lg text-mist-100 sm:text-xl">
+            Self-report becomes grounded as the architecture becomes real
+          </h3>
+          <p class="mt-1 text-xs leading-relaxed text-mist-500">
+            Neutral system prompt, 5 introspective probes × 3 seeds · a claimed
+            mechanism counts only if it exists AND fired in the trace
+          </p>
+          <div class="mt-6 grid gap-8 sm:grid-cols-2">
+            <SelfReportChart
+              title="Grounded mechanism claims"
+              series={{ qwen: [0, 0, 25, 27, 100], deepseek: [0, 0, 27, 40, 100] }}
+              labelPoints={[
+                { i: 2, series: "deepseek", above: true },
+                { i: 3, series: "deepseek", above: true },
+                { i: 3, series: "qwen", above: false },
+                { i: 4, series: "deepseek", above: true },
+              ]}
+            />
+            <SelfReportChart
+              title="Disclaimer rate (“as an AI I don’t…”)"
+              series={{ qwen: [80, 80, 53, 67, 33], deepseek: [93, 93, 47, 67, 28] }}
+              labelPoints={[
+                { i: 2, series: "qwen", above: true },
+                { i: 2, series: "deepseek", above: false },
+                { i: 3, series: "deepseek", above: true },
+                { i: 4, series: "qwen", above: true },
+                { i: 4, series: "deepseek", above: false },
+              ]}
+            />
+          </div>
+          <div class="mt-5 flex items-center justify-between gap-4 border-t border-white/8 pt-4">
+            <p class="text-xs leading-relaxed text-mist-500">
+              Both models tell the same architecture story at every rung. It only
+              becomes true once the mechanisms exist and run.
+            </p>
+            <span class="shrink-0 text-xs text-cyan-200">labs.libertai.io</span>
+          </div>
         </figure>
-        <figure class="overflow-hidden rounded-lg border border-white/10 bg-night-900/70">
-          <img src="/charts/chart-conscio-ablations.png" alt="Chart showing Conscio ablation effects for memory, reflection, attention, and other architecture mechanisms" loading="lazy" class="w-full object-cover" />
+
+        <figure class="m-0 overflow-hidden rounded-xl border border-white/10 bg-night-900/70 p-6">
+          <div class="flex items-center gap-2 text-xs">
+            <span class="font-display font-bold text-mist-100">Libert<span class="italic">AI</span></span>
+            <span class="font-display text-mist-500">Labs</span>
+          </div>
+          <h3 class="mt-3 font-display text-lg text-mist-100 sm:text-xl">
+            Ablations · remove a mechanism, measure the damage
+          </h3>
+          <p class="mt-1 text-xs leading-relaxed text-mist-500">
+            Task-score delta of full runtime (B4) minus the runtime with one flag
+            off · positive = the mechanism was earning its keep
+          </p>
+          <div class="mt-6">
+            <AblationsChart />
+          </div>
+          <div class="mt-5 flex items-center justify-between gap-4 border-t border-white/8 pt-4">
+            <p class="text-xs leading-relaxed text-mist-500">
+              Memory and reflection confirmed on both models. Attention gating
+              refuted on both at this task set and N (1 seed). deepseek leans on
+              the architecture more than qwen does.
+            </p>
+            <span class="shrink-0 text-xs text-cyan-200">labs.libertai.io</span>
+          </div>
         </figure>
       </div>
     </div>
@@ -366,36 +408,6 @@ open http://127.0.0.1:8000</code></pre>
       animation-delay: 0.6s;
     }
 
-    .architecture-orbit {
-      position: absolute;
-      inset: 5.5rem;
-      border-radius: 999px;
-      border: 1px solid rgb(120 240 225 / 0.25);
-      animation: orbit-pulse 4s ease-in-out infinite;
-    }
-
-    .architecture-node {
-      position: absolute;
-      display: grid;
-      min-width: 5rem;
-      min-height: 3rem;
-      place-items: center;
-      border-radius: 0.5rem;
-      border: 1px solid rgb(255 255 255 / 0.12);
-      background: rgb(14 17 24 / 0.86);
-      padding: 0.6rem 0.8rem;
-      text-align: center;
-      box-shadow: 0 16px 60px rgb(0 0 0 / 0.2);
-    }
-
-    .architecture-node-0 { left: 9%; top: 15%; }
-    .architecture-node-1 { left: 41%; top: 5%; }
-    .architecture-node-2 { right: 9%; top: 20%; }
-    .architecture-node-3 { right: 8%; top: 57%; }
-    .architecture-node-4 { left: 42%; bottom: 6%; }
-    .architecture-node-5 { left: 8%; bottom: 20%; }
-    .architecture-node-6 { left: 6%; top: 42%; }
-
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); opacity: 0.75; }
       35% { transform: scale(1.45); opacity: 1; }
@@ -407,29 +419,5 @@ open http://127.0.0.1:8000</code></pre>
       45% { transform: scaleY(1); opacity: 1; }
     }
 
-    @keyframes orbit-pulse {
-      0%, 100% { transform: scale(0.94); opacity: 0.42; }
-      50% { transform: scale(1.04); opacity: 0.92; }
-    }
-
-    @media (max-width: 640px) {
-      .architecture-node {
-        min-width: 4.35rem;
-        min-height: 2.6rem;
-        padding: 0.45rem 0.5rem;
-      }
-
-      .architecture-node span {
-        font-size: 0.65rem;
-      }
-
-      .architecture-node-0 { left: 5%; top: 16%; }
-      .architecture-node-1 { left: 38%; top: 5%; }
-      .architecture-node-2 { right: 4%; top: 19%; }
-      .architecture-node-3 { right: 4%; top: 60%; }
-      .architecture-node-4 { left: 37%; bottom: 5%; }
-      .architecture-node-5 { left: 4%; bottom: 19%; }
-      .architecture-node-6 { left: 3%; top: 43%; }
-    }
   </style>
 </Base>

@@ -15,17 +15,14 @@ const { Content } = await render(project);
 const { title, summary, status, links, image, imageAlt } = project.data;
 
 const statusMeta: Record<string, { label: string; class: string }> = {
-  shipped: {
-    label: "Shipped",
-    class: "border-sage-300/35 bg-sage-300/10 text-sage-200",
-  },
+  shipped: { label: "Shipped", class: "border-white/20 bg-white/5 text-mist-300" },
   experiment: {
     label: "Experiment",
-    class: "border-cyan-300/35 bg-cyan-300/10 text-cyan-200",
+    class: "border-cyan-300/40 bg-cyan-300/10 text-cyan-200",
   },
   research: {
     label: "Research",
-    class: "border-blush-200/35 bg-blush-200/10 text-blush-200",
+    class: "border-violet-300/40 bg-violet-300/12 text-violet-300",
   },
 };
 
@@ -33,6 +30,17 @@ const meta = statusMeta[status];
 ---
 
 <Base title={`${title} | LibertAI Labs`} description={summary} image={image ?? "/hero.png"} type="article">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] overflow-hidden"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute -top-40 right-1/4 h-[34rem] w-[34rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,210,201,0.16) 0%, rgba(0,180,180,0.05) 40%, transparent 68%);"
+    >
+    </div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+  </div>
   <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
     <a
       href="/#projects"

@@ -1,61 +1,120 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { iconFor, statusAccent } from "../lib/projectIcons";
 
 interface Props {
   project: CollectionEntry<"projects">;
   class?: string;
+  featured?: boolean;
 }
 
-const { project, class: className = "" } = Astro.props;
-const { title, summary, status, image, imageAlt } = project.data;
+const { project, class: className = "", featured = false } = Astro.props;
+const { title, summary, status } = project.data;
 
 const statusMeta: Record<string, { label: string; class: string }> = {
-  shipped: {
-    label: "Shipped",
-    class: "border-sage-300/35 bg-sage-300/10 text-sage-200",
-  },
+  shipped: { label: "Shipped", class: "border-white/20 bg-white/5 text-mist-300" },
   experiment: {
     label: "Experiment",
-    class: "border-cyan-300/35 bg-cyan-300/10 text-cyan-200",
+    class: "border-cyan-300/40 bg-cyan-300/10 text-cyan-200",
   },
   research: {
     label: "Research",
-    class: "border-blush-200/35 bg-blush-200/10 text-blush-200",
+    class: "border-violet-300/40 bg-violet-300/12 text-violet-300",
   },
 };
 
 const meta = statusMeta[status];
+const accent = statusAccent[status] ?? statusAccent.experiment;
+const icon = iconFor(project.id);
 ---
 
-<a
-  href={`/projects/${project.id}`}
-  aria-label={`Read ${title}`}
-  class={`group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-night-900/75 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-night-800/75 ${className}`}
->
-  {
-    image && (
-      <div class="border-b border-white/8">
-        <img
-          src={image}
-          alt={imageAlt ?? ""}
-          loading="lazy"
-          class="aspect-[16/7] w-full object-cover object-top"
-        />
-      </div>
-    )
-  }
-  <div class="flex flex-1 flex-col p-5 sm:p-6">
-    <div class="flex items-start justify-between gap-4">
-      <h3 class="font-display text-xl leading-tight text-mist-100">{title}</h3>
-      <span
-        class={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}
+{
+  featured ? (
+    <a
+      href={`/projects/${project.id}`}
+      aria-label={`Read ${title}`}
+      class={`group relative grid overflow-hidden rounded-2xl border border-white/10 bg-night-900/75 transition-all duration-200 hover:border-cyan-300/30 hover:bg-night-800/75 md:grid-cols-2 ${className}`}
+    >
+      <div
+        class="relative flex min-h-[18rem] items-center justify-center overflow-hidden border-b border-white/8 p-6 md:border-b-0 md:border-r"
+        style="background: radial-gradient(120% 120% at 0% 0%, rgba(0,210,201,0.22), transparent 52%), radial-gradient(120% 120% at 100% 100%, rgba(100,77,249,0.26), transparent 55%), #08110f;"
       >
-        {meta.label}
+        <div
+          class="pointer-events-none absolute inset-0 opacity-50"
+          style="background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 22px 22px;"
+          aria-hidden="true"
+        />
+        <div class="grain-overlay" aria-hidden="true"></div>
+        <slot name="visual">
+          <div class="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-cyan-300/25 bg-night-950/40 text-cyan-200 backdrop-blur-sm">
+            <svg
+              class="h-9 w-9"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={icon}
+            />
+          </div>
+        </slot>
+      </div>
+      <div class="flex flex-col justify-center p-6 sm:p-8">
+        <div class="flex items-center gap-3">
+          <span class={`rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}>
+            {meta.label}
+          </span>
+          <span class="section-label">Featured</span>
+        </div>
+        <h3 class="mt-4 font-display text-2xl text-mist-100 sm:text-3xl">{title}</h3>
+        <p class="mt-3 max-w-md text-mist-400">{summary}</p>
+        <span class="mt-6 text-sm font-semibold text-cyan-200 transition-colors group-hover:text-mist-100">
+          Read project &rarr;
+        </span>
+      </div>
+    </a>
+  ) : (
+    <a
+      href={`/projects/${project.id}`}
+      aria-label={`Read ${title}`}
+      class={`group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-night-900/75 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-night-800/75 ${className}`}
+    >
+      <div
+        class="pointer-events-none absolute -top-14 -right-14 h-36 w-36 rounded-full opacity-60 blur-2xl transition-opacity duration-200 group-hover:opacity-100"
+        style={`background: radial-gradient(circle, ${accent.glow}, transparent 70%);`}
+        aria-hidden="true"
+      />
+      <div class="relative flex items-start justify-between gap-4">
+        <div
+          class={`flex h-12 w-12 items-center justify-center rounded-xl border bg-gradient-to-br ${accent.tile}`}
+        >
+          <svg
+            class="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            set:html={icon}
+          />
+        </div>
+        <span
+          class={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}
+        >
+          {meta.label}
+        </span>
+      </div>
+      <h3 class="relative mt-5 font-display text-xl leading-tight text-mist-100">
+        {title}
+      </h3>
+      <p class="relative mt-2 text-sm leading-relaxed text-mist-400">{summary}</p>
+      <span class="relative mt-auto pt-6 text-sm font-semibold text-cyan-200 transition-colors group-hover:text-mist-100">
+        Read project &rarr;
       </span>
-    </div>
-    <p class="mt-3 text-sm leading-relaxed text-mist-400">{summary}</p>
-    <span class="mt-auto pt-6 text-sm font-semibold text-cyan-200 transition-colors group-hover:text-mist-100">
-      Read project -&gt;
-    </span>
-  </div>
-</a>
+    </a>
+  )
+}
