@@ -2,8 +2,24 @@
 
 @font-face {
   font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
   src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -36,25 +52,31 @@
   --font-display: "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --color-night-950: #08090f;
-  --color-night-900: #0e1118;
-  --color-night-800: #171b26;
-  --color-night-700: #242b3a;
+  /* Backgrounds — indigo "Void" page, teal-tinted "LABS" surfaces */
+  --color-night-950: #040311; /* Void — page background */
+  --color-night-900: #07100e; /* LABS surface */
+  --color-night-800: #0c1a18; /* lifted card */
+  --color-night-700: #16403c; /* teal-tinted border / hover */
 
-  --color-mist-100: #e9e9f2;
-  --color-mist-300: #b9bacb;
-  --color-mist-400: #9a9bb0;
-  --color-mist-500: #7c7d93;
+  /* Text */
+  --color-mist-100: #f8f5ff; /* brand White */
+  --color-mist-300: #c2c4d4;
+  --color-mist-400: #93a0a3; /* teal-cool body */
+  --color-mist-500: #5a7a78; /* LABS muted teal-grey */
 
-  --color-violet-500: #644df9;
+  /* Indigo — retained brand base */
+  --color-violet-500: #644df9; /* Indigo (Primary) */
   --color-violet-400: #8a78ff;
   --color-violet-300: #ab9eff;
-  --color-cyan-300: #78f0e1;
-  --color-cyan-200: #a7fff1;
+
+  /* Teal — LABS signature accent */
+  --color-cyan-300: #00d2c9; /* LABS teal */
+  --color-cyan-200: #5ff4ec; /* LABS teal, light */
+
   --color-sage-300: #9ce6b8;
   --color-sage-200: #c6f7d8;
   --color-amber-300: #ffd37a;
-  --color-blush-200: #fccbff;
+  --color-blush-200: #fccbff; /* Lavender */
 }
 
 html {
@@ -129,13 +151,24 @@ main:focus {
   text-transform: uppercase;
 }
 
+/* Film grain overlay — textures gradients and kills banding. Tune via
+   opacity (intensity) and baseFrequency (grain size, higher = finer). */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: normal;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 .text-balance {
   text-wrap: balance;
 }
 
 @media (max-width: 360px) {
-  .labs-header-label,
-  .site-header-divider {
+  .labs-header-label {
     display: none;
   }
 

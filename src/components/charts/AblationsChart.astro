@@ -1,0 +1,101 @@
+---
+// Native, on-brand recreation of the Conscio ablations chart.
+// Two model series: qwen (violet) + deepseek (teal). Verdicts use teal for
+// confirmed and neutral greys otherwise to stay on the teal+purple palette.
+type Verdict = "confirmed" | "inconclusive" | "refuted";
+interface Row {
+  name: string;
+  qwen: number;
+  deepseek: number;
+  qv: Verdict;
+  dv: Verdict;
+}
+
+const rows: Row[] = [
+  { name: "memory", qwen: 0.17, deepseek: 0.17, qv: "confirmed", dv: "confirmed" },
+  { name: "reflection", qwen: 0.18, deepseek: 0.14, qv: "confirmed", dv: "confirmed" },
+  { name: "prediction", qwen: 0.08, deepseek: 0.12, qv: "inconclusive", dv: "confirmed" },
+  { name: "self-state", qwen: -0.03, deepseek: 0.21, qv: "refuted", dv: "confirmed" },
+  { name: "appraisal", qwen: 0.0, deepseek: 0.08, qv: "refuted", dv: "inconclusive" },
+  { name: "attention", qwen: 0.0, deepseek: 0.04, qv: "refuted", dv: "refuted" },
+];
+
+const MIN = -0.05;
+const MAX = 0.26;
+const PL = 140;
+const PR = 720;
+const PT = 30;
+const PB = 348;
+const W = PR - PL;
+const x = (v: number) => PL + ((v - MIN) / (MAX - MIN)) * W;
+const rowH = (PB - PT) / rows.length;
+
+const ticks = [0, 0.05, 0.1, 0.15, 0.2, 0.25];
+const QWEN = "#8a78ff";
+const TEAL = "#00d2c9";
+const verdictColor: Record<Verdict, string> = {
+  confirmed: "#5ff4ec",
+  inconclusive: "#c2c4d4",
+  refuted: "#5a7a78",
+};
+const fmt = (v: number) => (v >= 0 ? "+" : "") + v.toFixed(2);
+const tickLabel = (t: number) => (t === 0 ? "0" : "+" + t.toFixed(2).replace(/^0/, ""));
+---
+
+<svg viewBox="0 0 800 400" fill="none" class="h-auto w-full" role="img" aria-label="Ablation study: task-score delta when each mechanism is removed, for qwen and deepseek">
+  <!-- vertical gridlines + x ticks -->
+  {
+    ticks.map((t) => (
+      <line x1={x(t)} y1={PT} x2={x(t)} y2={PB} stroke="#ffffff" stroke-opacity={t === 0 ? 0.18 : 0.06} />
+    ))
+  }
+  {
+    ticks.map((t) => (
+      <text x={x(t)} y={PB + 18} text-anchor="middle" font-family="Satoshi, sans-serif" font-size="11" fill="#5a7a78">
+        {tickLabel(t)}
+      </text>
+    ))
+  }
+
+  <!-- confirm threshold -->
+  <line x1={x(0.1)} y1={PT - 4} x2={x(0.1)} y2={PB} stroke={TEAL} stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x={x(0.1)} y={PT - 10} text-anchor="middle" font-family="Satoshi, sans-serif" font-size="10.5" fill="#5ff4ec">confirm threshold +0.10</text>
+
+  <!-- rows -->
+  {
+    rows.map((row, i) => {
+      const top = PT + i * rowH;
+      const mid = top + rowH / 2;
+      const qy = mid - 17;
+      const dy = mid + 2;
+      const bh = 14;
+      const qStart = Math.min(x(0), x(row.qwen));
+      const qW = Math.max(2, Math.abs(x(row.qwen) - x(0)));
+      const dStart = Math.min(x(0), x(row.deepseek));
+      const dW = Math.max(2, Math.abs(x(row.deepseek) - x(0)));
+      return (
+        <g>
+          <text x={PL - 14} y={mid + 4} text-anchor="end" font-family="Satoshi, sans-serif" font-size="12.5" fill="#c2c4d4">
+            {row.name}
+          </text>
+          <rect x={qStart} y={qy} width={qW} height={bh} rx="3" fill={QWEN} />
+          <rect x={dStart} y={dy} width={dW} height={bh} rx="3" fill={TEAL} />
+          <text x={Math.max(x(row.qwen), x(0)) + 8} y={qy + 11} font-family="Satoshi, sans-serif" font-size="10.5" font-weight="500" fill={verdictColor[row.qv]}>
+            {fmt(row.qwen)} {row.qv.toUpperCase()}
+          </text>
+          <text x={Math.max(x(row.deepseek), x(0)) + 8} y={dy + 11} font-family="Satoshi, sans-serif" font-size="10.5" font-weight="500" fill={verdictColor[row.dv]}>
+            {fmt(row.deepseek)} {row.dv.toUpperCase()}
+          </text>
+        </g>
+      );
+    })
+  }
+
+  <!-- legend -->
+  <g>
+    <rect x="566" y={PB + 28} width="11" height="11" rx="2" fill={QWEN} />
+    <text x="583" y={PB + 38} font-family="Satoshi, sans-serif" font-size="11" fill="#93a0a3">qwen3.6-35b-a3b</text>
+    <rect x="690" y={PB + 28} width="11" height="11" rx="2" fill={TEAL} />
+    <text x="707" y={PB + 38} font-family="Satoshi, sans-serif" font-size="11" fill="#93a0a3">deepseek-v4-flash</text>
+  </g>
+</svg>

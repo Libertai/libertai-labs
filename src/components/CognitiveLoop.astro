@@ -1,0 +1,127 @@
+---
+// Conscio cognitive loop: seven stages evenly orbiting an LLM core, with a
+// pulse travelling the loop, sequential node highlighting, and a glowing core.
+const stages = ["Sense", "Appraise", "Attend", "Act", "Validate", "Remember", "Reflect"];
+const cx = 340;
+const cy = 235;
+const rx = 240;
+const ry = 158;
+const coreR = 58;
+
+const nodes = stages.map((label, i) => {
+  const a = ((-90 + i * (360 / stages.length)) * Math.PI) / 180;
+  const w = label.length * 9 + 32;
+  return {
+    label: label.toUpperCase(),
+    i,
+    x: cx + rx * Math.cos(a),
+    y: cy + ry * Math.sin(a),
+    w,
+    h: 40,
+  };
+});
+
+const orbitPath = `M${cx},${cy - ry} A${rx},${ry} 0 1 1 ${cx},${cy + ry} A${rx},${ry} 0 1 1 ${cx},${cy - ry}`;
+---
+
+<div class="relative overflow-hidden rounded-xl border border-white/10 bg-night-950/70">
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <svg
+    viewBox="0 0 680 480"
+    fill="none"
+    class="relative h-auto w-full"
+    role="img"
+    aria-label="Conscio cognitive loop: sense, appraise, attend, act, validate, remember and reflect cycle around an LLM core"
+  >
+    <defs>
+      <radialGradient id="cl-core" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#00d2c9" stop-opacity="0.3"></stop>
+        <stop offset="1" stop-color="#00d2c9" stop-opacity="0"></stop>
+      </radialGradient>
+      <radialGradient id="cl-bg" cx="50%" cy="50%" r="62%">
+        <stop offset="0" stop-color="#0a1a18" stop-opacity="0.85"></stop>
+        <stop offset="1" stop-color="#050810" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+
+    <rect x="0" y="0" width="680" height="480" fill="url(#cl-bg)"></rect>
+
+    <ellipse cx={cx} cy={cy} rx={rx + 16} ry={ry + 16} fill="none" stroke="#ffffff" stroke-opacity="0.04"></ellipse>
+    <ellipse cx={cx} cy={cy} rx={rx - 34} ry={ry - 34} fill="none" stroke="#ffffff" stroke-opacity="0.04"></ellipse>
+
+    {nodes.map((n) => <line x1={cx} y1={cy} x2={n.x} y2={n.y} stroke="#00d2c9" stroke-opacity="0.08"></line>)}
+
+    <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="#1d4a45" stroke-width="1.5"></ellipse>
+    <ellipse class="cl-flow" cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="#00d2c9" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="2 13" stroke-linecap="round"></ellipse>
+
+    <circle cx={cx} cy={cy} r="88" fill="url(#cl-core)"></circle>
+    <circle class="cl-corepulse" cx={cx} cy={cy} r={coreR} fill="none" stroke="#00d2c9" stroke-opacity="0.6"></circle>
+    <circle cx={cx} cy={cy} r={coreR} fill="#071412" stroke="#00d2c9" stroke-opacity="0.45"></circle>
+    <text x={cx} y={cy} text-anchor="middle" dominant-baseline="central" font-family="Satoshi, sans-serif" font-size="15" font-weight="700" letter-spacing="1" fill="#a7fff1">LLM CORE</text>
+
+    <circle class="cl-dot" r="5" fill="#5ff4ec">
+      <animateMotion dur="7s" repeatCount="indefinite" path={orbitPath}></animateMotion>
+    </circle>
+
+    {
+      nodes.map((n) => (
+        <g class="cl-node" style={`--i:${n.i}`}>
+          <rect x={n.x - n.w / 2} y={n.y - n.h / 2} width={n.w} height={n.h} rx="10" fill="#0e131b" stroke="#ffffff" stroke-opacity="0.1" />
+          <rect class="cl-node-active" x={n.x - n.w / 2} y={n.y - n.h / 2} width={n.w} height={n.h} rx="10" fill="#00d2c9" fill-opacity="0.12" stroke="#00d2c9" stroke-opacity="0.9" />
+          <text x={n.x} y={n.y} text-anchor="middle" dominant-baseline="central" font-family="Satoshi, sans-serif" font-size="12.5" font-weight="700" letter-spacing="0.8" fill="#dfe7e6">
+            {n.label}
+          </text>
+        </g>
+      ))
+    }
+  </svg>
+</div>
+
+<style is:global>
+  .cl-flow {
+    animation: cl-flow-move 3.5s linear infinite;
+  }
+  @keyframes cl-flow-move {
+    to {
+      stroke-dashoffset: -150;
+    }
+  }
+  .cl-corepulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cl-core-pulse 3s ease-in-out infinite;
+  }
+  @keyframes cl-core-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.13);
+      opacity: 0;
+    }
+  }
+  .cl-dot {
+    filter: drop-shadow(0 0 6px #00d2c9);
+  }
+  .cl-node-active {
+    opacity: 0;
+    animation: cl-node 7s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -1s);
+  }
+  @keyframes cl-node {
+    0%,
+    3% {
+      opacity: 0;
+    }
+    8%,
+    12% {
+      opacity: 1;
+    }
+    18%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
