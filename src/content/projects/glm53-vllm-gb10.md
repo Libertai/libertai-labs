@@ -1,7 +1,7 @@
 ---
 title: GLM-5.3-Flash on vLLM, on GB10
 summary: A hand-written sparse-MLA CUDA kernel for sm_121 and a fix for vLLM's uninitialised NVFP4 MoE activation scale, which together take GLM-5.3-Flash from degenerate output to correct serving on a two-node DGX-Spark-class cluster.
-status: research
+status: shipped
 order: 7
 links:
   - label: Recipe and kernel
@@ -29,13 +29,17 @@ Measured at concurrency 1, medians of five runs.
 | Configuration | tok/s |
 | --- | --- |
 | vLLM, this work, no speculative decoding | 14.46 |
-| vLLM, this work, MTP with 3 speculative tokens | 24.04 |
+| vLLM, MTP with 3 speculative tokens | 24.04 |
+| vLLM, MTP plus CUDA graphs as vLLM configures them | 23.69 |
+| vLLM, MTP plus CUDA graphs, breakable graphs disabled | 24.38 |
 | SGLang, no speculative decoding | 14.95 |
-| SGLang with NEXTN MTP, the production lane | about 25 |
+| SGLang with NEXTN MTP | about 25 |
 
 The kernel is not the limiter at concurrency 1. At 14.46 tok/s the lane sits on the memory-bandwidth wall for an 18B-active model on this hardware, and it matches the SGLang baseline almost exactly. Speculative decoding is what moves the number, and with it vLLM reaches parity with SGLang rather than beating it. Speculative decoding was itself unavailable before this work, because the workaround it replaces changed the head size that the draft layer depends on.
 
-SGLang remains the production lane on this cluster today.
+One configuration lost outright. CUDA graphs as vLLM enables them by default use breakable graphs, which gave no speed at all and cut the KV cache by a factor of 4.6. They only become a small win once `VLLM_USE_BREAKABLE_CUDAGRAPH` is set to 0.
+
+This lane now serves production traffic on the cluster, at parity with the SGLang lane it replaced.
 
 ## Upstream
 
