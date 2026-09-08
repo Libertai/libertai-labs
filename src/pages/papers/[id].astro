@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const papers = await getCollection("papers");
+  return papers.map((note) => ({
+    params: { id: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const { title, summary, date, image, imageAlt } = note.data;
+const wordCount = note.body.trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Base
+  title={`${title} | LibertAI Labs`}
+  description={summary}
+  image={image ?? "/hero.png"}
+  type="article"
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] overflow-hidden"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute -top-40 right-1/4 h-[34rem] w-[34rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,210,201,0.16) 0%, rgba(0,180,180,0.05) 40%, transparent 68%);"
+    >
+    </div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+  </div>
+  <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
+    <a
+      href="/#papers"
+      class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
+    >
+      &larr; All notes
+    </a>
+    <header class="mt-8 max-w-3xl">
+      <p class="section-label">Research paper</p>
+      <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-mist-500">
+        <time datetime={date.toISOString()}>{dateFormat.format(date)}</time>
+        <span aria-hidden="true">/</span>
+        <span>{readingMinutes} min read</span>
+      </div>
+      <h1 class="mt-4 font-display text-4xl leading-tight text-mist-100 sm:text-5xl">
+        {title}
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-mist-300">{summary}</p>
+    </header>
+    {
+      image && (
+        <figure class="mt-10 overflow-hidden rounded-lg border border-white/10 bg-night-900/60">
+          <img
+            src={image}
+            alt={imageAlt ?? ""}
+            class="aspect-[16/9] w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </figure>
+      )
+    }
+    <hr class="my-10 border-white/8" />
+    <div class="prose max-w-3xl">
+      <Content />
+    </div>
+  </article>
+</Base>

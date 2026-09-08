@@ -27,4 +27,15 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { projects, notes };
+const papers = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/papers" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    summary: z.string(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, notes, papers };
