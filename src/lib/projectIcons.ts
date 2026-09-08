@@ -1,6 +1,8 @@
 // Inner SVG markup for each project, keyed by content id.
 // Stroke icons drawn on a 24x24 viewBox using currentColor.
 export const projectIcons: Record<string, string> = {
+  "glm53-flash":
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8v8H8z"/><path d="M3 9h-1M3 15h-1M22 9h-1M22 15h-1M9 3v-1M15 3v-1M9 22v-1M15 22v-1"/>',
   "nvfp4-models":
     '<rect x="5" y="5" width="14" height="14" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
   "consensus-search":
@@ -12,8 +14,7 @@ export const projectIcons: Record<string, string> = {
   avatar:
     '<circle cx="12" cy="8" r="4"/><path d="M5 20.5a7 7 0 0 1 14 0"/>',
   conscio:
-    '<path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.5V17a3 3 0 0 0 5 2 3 3 0 0 0 5-2v-2.5A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/><path d="M12 7v8M9 11h6"/>',
-};
+    '<path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.5V17a3 3 0 0 0 5 2 3 3 0 0 0 5-2v-2.5A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/><path d="M12 7v8M9 11h6"/>',};
 
 export const fallbackIcon = '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>';
 
