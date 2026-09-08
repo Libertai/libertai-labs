@@ -14,7 +14,10 @@ export const projectIcons: Record<string, string> = {
   avatar:
     '<circle cx="12" cy="8" r="4"/><path d="M5 20.5a7 7 0 0 1 14 0"/>',
   conscio:
-    '<path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.5V17a3 3 0 0 0 5 2 3 3 0 0 0 5-2v-2.5A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/><path d="M12 7v8M9 11h6"/>',};
+    '<path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.5V17a3 3 0 0 0 5 2 3 3 0 0 0 5-2v-2.5A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/><path d="M12 7v8M9 11h6"/>',
+  "post-quantum-blockchain-review":
+    '<path d="M12 3l7 3v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6l7-3z"/><path d="M8.5 12h7M12 8.5v7"/><circle cx="12" cy="12" r="2.5"/>',
+};
 
 export const fallbackIcon = '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/>';
 

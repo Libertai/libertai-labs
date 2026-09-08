@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1150" viewBox="0 0 1600 1150" role="img" aria-labelledby="title desc">
+  <title id="title">Projects and efforts analyzed in the post-quantum blockchain security review</title>
+  <desc id="desc">Thirty core review targets grouped into seven live and deployed systems, thirteen migration and readiness efforts, and ten on-chain verifiers and libraries. Four additional projects from a separate preliminary web-only scan are QANplatform, Hedera, Nervos Network, and XDC Network.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#06100e"/>
+      <stop offset=".55" stop-color="#050912"/>
+      <stop offset="1" stop-color="#09051d"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#00d2c9"/>
+      <stop offset=".5" stop-color="#5ff4ec"/>
+      <stop offset="1" stop-color="#8a78ff"/>
+    </linearGradient>
+    <linearGradient id="count1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5ff4ec"/><stop offset="1" stop-color="#00a89f"/></linearGradient>
+    <linearGradient id="count2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4baff"/><stop offset="1" stop-color="#644df9"/></linearGradient>
+    <linearGradient id="count3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5ff4ec"/><stop offset="1" stop-color="#8a78ff"/></linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" fill="none" stroke="#ffffff" stroke-opacity=".022"/></pattern>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+
+  <rect width="1600" height="1150" rx="26" fill="url(#bg)"/>
+  <rect width="1600" height="1150" rx="26" fill="url(#grid)"/>
+  <circle cx="180" cy="180" r="150" fill="#00d2c9" fill-opacity=".075" filter="url(#glow)"/>
+  <circle cx="1430" cy="180" r="180" fill="#644df9" fill-opacity=".09" filter="url(#glow)"/>
+
+  <text x="72" y="72" fill="#5ff4ec" font-family="Inter,Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="4">POST-QUANTUM LANDSCAPE</text>
+  <text x="72" y="132" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="50" font-weight="600">Every effort analyzed</text>
+  <text x="72" y="174" fill="#93a0a3" font-family="Inter,Arial,sans-serif" font-size="21">Networks, roadmaps, proposals, implementations and recurring vulnerability classes</text>
+  <rect x="72" y="207" width="1456" height="3" rx="1.5" fill="url(#line)" opacity=".72"/>
+
+  <g transform="translate(72 246)">
+    <rect width="448" height="704" rx="22" fill="#0b1917" fill-opacity=".9" stroke="#5ff4ec" stroke-opacity=".25"/>
+    <circle cx="64" cy="64" r="32" fill="#00d2c9" fill-opacity=".12" stroke="#5ff4ec" stroke-opacity=".5"/>
+    <path d="M47 64h34M64 47v34M52 52l24 24M76 52L52 76" stroke="#5ff4ec" stroke-width="1.7" stroke-linecap="round"/>
+    <text x="112" y="56" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="27" font-weight="600">Live and deployed</text>
+    <text x="112" y="86" fill="#93a0a3" font-family="Inter,Arial,sans-serif" font-size="17">networks and PQ components</text>
+    <text x="376" y="76" fill="url(#count1)" font-family="Satoshi,Inter,Arial,sans-serif" font-size="50" font-weight="700">7</text>
+
+    <g font-family="Inter,Arial,sans-serif" font-size="19" fill="#e5e2ed">
+      <g transform="translate(28 130)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">QRL</text></g>
+      <g transform="translate(28 204)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">IOTA, historical WOTS</text></g>
+      <g transform="translate(28 278)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">Mochimo</text></g>
+      <g transform="translate(28 352)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">Cellframe</text></g>
+      <g transform="translate(28 426)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">Abelian</text></g>
+      <g transform="translate(28 500)"><rect width="392" height="72" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="36" r="8" fill="#00d2c9"/><text x="55" y="29">Algorand state proofs</text><text x="55" y="52" fill="#93a0a3" font-size="16">and PQ accounts</text></g>
+      <g transform="translate(28 584)"><rect width="392" height="62" rx="13" fill="#ffffff" fill-opacity=".035" stroke="#ffffff" stroke-opacity=".06"/><circle cx="31" cy="31" r="8" fill="#00d2c9"/><text x="55" y="38">AERE Network</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(576 246)">
+    <rect width="448" height="704" rx="22" fill="#0b1718" fill-opacity=".9" stroke="#ab9eff" stroke-opacity=".27"/>
+    <circle cx="64" cy="64" r="32" fill="#644df9" fill-opacity=".12" stroke="#ab9eff" stroke-opacity=".5"/>
+    <path d="M47 72c12-21 23-21 34 0M47 55c12 21 23 21 34 0" fill="none" stroke="#ab9eff" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="112" y="47" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">Migration and</text>
+    <text x="112" y="75" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">readiness</text>
+    <text x="112" y="101" fill="#93a0a3" font-family="Inter,Arial,sans-serif" font-size="15">roadmaps, standards and proposals</text>
+    <text x="365" y="76" fill="url(#count2)" font-family="Satoshi,Inter,Arial,sans-serif" font-size="50" font-weight="700">13</text>
+
+    <g font-family="Inter,Arial,sans-serif" font-size="17" fill="#e5e2ed">
+      <g transform="translate(28 130)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Ethereum PQ / Lean Ethereum</text></g>
+      <g transform="translate(28 174)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">StarkWare / Starknet roadmap</text></g>
+      <g transform="translate(28 218)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Algorand Falcon roadmap</text></g>
+      <g transform="translate(28 262)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Cardano Nightstream</text></g>
+      <g transform="translate(28 306)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Solana Falcon, Anza / Firedancer</text></g>
+      <g transform="translate(28 350)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Cosmos / CometBFT PQC</text></g>
+      <g transform="translate(28 394)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Bitcoin BIP-360</text></g>
+      <g transform="translate(28 438)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Zcash ZIP-2005 / Ironwood</text></g>
+      <g transform="translate(28 482)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">EIP-7702</text></g>
+      <g transform="translate(28 526)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">EIP-8141</text></g>
+      <g transform="translate(28 570)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">PQCC / NIST migration guidance</text></g>
+      <g transform="translate(28 614)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">libbitcoinpqc</text></g>
+      <g transform="translate(28 658)"><rect width="392" height="38" rx="10" fill="#ffffff" fill-opacity=".035"/><circle cx="21" cy="19" r="5" fill="#8a78ff"/><text x="39" y="25">Falcon side-channel class</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(1080 246)">
+    <rect width="448" height="704" rx="22" fill="#0b1719" fill-opacity=".9" stroke="#61dcd8" stroke-opacity=".25"/>
+    <circle cx="64" cy="64" r="32" fill="#644df9" fill-opacity=".09" stroke="#61dcd8" stroke-opacity=".48"/>
+    <rect x="49" y="49" width="30" height="30" rx="6" fill="none" stroke="#61dcd8" stroke-width="1.7"/>
+    <path d="M56 64h16M64 56v16" stroke="#ab9eff" stroke-width="1.7" stroke-linecap="round"/>
+    <text x="112" y="47" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">On-chain</text>
+    <text x="112" y="75" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">verification</text>
+    <text x="112" y="101" fill="#93a0a3" font-family="Inter,Arial,sans-serif" font-size="15">contracts, precompiles and libraries</text>
+    <text x="365" y="76" fill="url(#count3)" font-family="Satoshi,Inter,Arial,sans-serif" font-size="50" font-weight="700">10</text>
+
+    <g font-family="Inter,Arial,sans-serif" font-size="17" fill="#e5e2ed">
+      <g transform="translate(28 130)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">SPHINCS+ Solidity, blocq-inc</text></g>
+      <g transform="translate(28 184)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">SPHINCS-, nconsigny</text></g>
+      <g transform="translate(28 238)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">EVM Dilithium gas analysis</text></g>
+      <g transform="translate(28 292)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">Falcon-on-Solana</text></g>
+      <g transform="translate(28 346)"><rect width="392" height="62" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="31" r="6" fill="#5ff4ec"/><text x="44" y="26">StarkWare SHARP</text><text x="44" y="48" fill="#93a0a3" font-size="15">and Ethereum STARK verifier</text></g>
+      <g transform="translate(28 416)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">=nil; Proof Market</text></g>
+      <g transform="translate(28 470)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">quantum-safe-cre</text></g>
+      <g transform="translate(28 524)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">EIP-7619</text></g>
+      <g transform="translate(28 578)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">EIP-7885</text></g>
+      <g transform="translate(28 632)"><rect width="392" height="46" rx="11" fill="#ffffff" fill-opacity=".035"/><circle cx="23" cy="23" r="6" fill="#5ff4ec"/><text x="44" y="29">RISC Zero 0xisk / HAPPIER</text></g>
+    </g>
+  </g>
+
+  <g transform="translate(72 986)">
+    <rect width="1456" height="104" rx="18" fill="#ffffff" fill-opacity=".03" stroke="#ffd37a" stroke-opacity=".22"/>
+    <text x="28" y="35" fill="#ffd37a" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2">ADDITIONAL PRELIMINARY WEB-ONLY SCAN</text>
+    <text x="28" y="72" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">QANplatform</text>
+    <text x="322" y="72" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">Hedera</text>
+    <text x="568" y="72" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">Nervos Network</text>
+    <text x="932" y="72" fill="#f8f5ff" font-family="Satoshi,Inter,Arial,sans-serif" font-size="25" font-weight="600">XDC Network</text>
+    <text x="1180" y="69" fill="#5a7a78" font-family="Inter,Arial,sans-serif" font-size="14">Separate methodology</text>
+    <text x="1180" y="88" fill="#5a7a78" font-family="Inter,Arial,sans-serif" font-size="14">excluded from core figures</text>
+  </g>
+  <text x="72" y="1127" fill="#5a7a78" font-family="Inter,Arial,sans-serif" font-size="15">LibertAI Labs • July 2026 • Thirty core targets plus four additional unique projects from the preliminary scan</text>
+</svg>
