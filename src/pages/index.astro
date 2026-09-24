@@ -17,13 +17,16 @@ const papers = (await getCollection("papers")).sort(
     b.data.date.valueOf() - a.data.date.valueOf() ||
     a.data.title.localeCompare(b.data.title),
 );
+const models = (await getCollection("models")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 
 const [featured, ...restProjects] = projects;
 
 const heroStats = [
   { value: "24k+", label: "downloads" },
   { value: `${projects.length}`, label: "projects" },
-  { value: "9", label: "open repos" },
+  { value: "10", label: "open repos" },
 ];
 
 const labTracks = [
@@ -45,7 +48,7 @@ const labTracks = [
 ];
 
 const modelStats = [
-  { value: "9", label: "repos", accent: "text-violet-300" },
+  { value: "10", label: "repos", accent: "text-violet-300" },
   { value: "24k+", label: "downloads", accent: "text-cyan-200" },
   { value: "5", label: "base models", accent: "text-violet-300" },
 ];
@@ -162,6 +165,55 @@ const latestNote = notes[0];
             <h2 class="mt-4 font-display text-lg text-mist-100">{track.title}</h2>
             <p class="mt-2 text-sm leading-relaxed text-mist-400">{track.body}</p>
           </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="models" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-24">
+    <div class="max-w-2xl">
+      <p class="section-label">Models</p>
+      <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">
+        Open-weight releases
+      </h2>
+      <p class="mt-4 text-mist-400">
+        Typed, calibrated decision models with published temperatures and
+        reproducible benchmark context. Losses stated next to wins.
+      </p>
+    </div>
+    <div class="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
+      {
+        models.map((model) => (
+          <a
+            href={`/models/${model.id}`}
+            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-night-900/75 p-6 transition-all duration-200 hover:border-cyan-300/30 hover:bg-night-800/75 sm:p-8"
+          >
+            <div
+              class="pointer-events-none absolute -top-14 -right-14 h-36 w-36 rounded-full opacity-60 blur-2xl transition-opacity duration-200 group-hover:opacity-100"
+              style="background: radial-gradient(circle, rgba(0,210,201,0.18), transparent 70%);"
+              aria-hidden="true"
+            />
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-display text-2xl text-mist-100">{model.data.title}</h3>
+              <span class="shrink-0 rounded-full border border-white/20 bg-white/5 px-2.5 py-0.5 text-xs text-mist-300">
+                Shipped
+              </span>
+            </div>
+            <p class="relative mt-3 text-sm leading-relaxed text-mist-400">
+              {model.data.summary}
+            </p>
+            <dl class="mt-6 grid grid-cols-2 gap-3">
+              {model.data.metrics.slice(0, 4).map((metric) => (
+                <div class="rounded-lg border border-white/10 bg-night-950/45 p-3">
+                  <dt class="text-[11px] leading-snug text-mist-500">{metric.label}</dt>
+                  <dd class="mt-1 font-display text-xl text-cyan-200">{metric.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <span class="relative mt-auto pt-6 text-sm font-semibold text-cyan-200 transition-colors group-hover:text-mist-100">
+              Read model &rarr;
+            </span>
+          </a>
         ))
       }
     </div>

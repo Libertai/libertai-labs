@@ -1,6 +1,8 @@
 // Inner SVG markup for each project, keyed by content id.
 // Stroke icons drawn on a 24x24 viewBox using currentColor.
 export const projectIcons: Record<string, string> = {
+  deem:
+    '<circle cx="5" cy="12" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M7.2 12h4.8c2.5 0 4-1.5 5-3.5M12 12c2.5 0 4 1.5 5 3.5"/>',
   "glm53-flash":
     '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8v8H8z"/><path d="M3 9h-1M3 15h-1M22 9h-1M22 15h-1M9 3v-1M15 3v-1M9 22v-1M15 22v-1"/>',
   "nvfp4-models":

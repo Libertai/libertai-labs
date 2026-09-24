@@ -1,0 +1,121 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const models = await getCollection("models");
+  return models.map((model) => ({
+    params: { id: model.id },
+    props: { model },
+  }));
+}
+
+const { model } = Astro.props;
+const { Content } = await render(model);
+const { title, summary, status, date, baseModel, weights, license, metrics, links } = model.data;
+
+const statusMeta: Record<string, { label: string; class: string }> = {
+  shipped: { label: "Shipped", class: "border-white/20 bg-white/5 text-mist-300" },
+  preview: {
+    label: "Preview",
+    class: "border-cyan-300/40 bg-cyan-300/10 text-cyan-200",
+  },
+};
+
+const meta = statusMeta[status];
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Base title={`${title} | LibertAI Labs`} description={summary} type="article">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] overflow-hidden"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute -top-40 right-1/4 h-[34rem] w-[34rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(0,210,201,0.16) 0%, rgba(0,180,180,0.05) 40%, transparent 68%);"
+    >
+    </div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+  </div>
+  <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
+    <a
+      href="/#models"
+      class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
+    >
+      &larr; All models
+    </a>
+    <div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
+      <header>
+        <p class="section-label">Model</p>
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <span class={`rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}>
+            {meta.label}
+          </span>
+          <time datetime={date.toISOString()} class="text-sm text-mist-500">
+            {dateFormat.format(date)}
+          </time>
+        </div>
+        <h1 class="mt-4 max-w-3xl font-display text-4xl leading-tight text-mist-100 sm:text-5xl">
+          {title}
+        </h1>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-mist-300">{summary}</p>
+        <dl class="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-sm text-mist-500">
+          <div>
+            <dt class="inline">Base model: </dt>
+            <dd class="inline text-mist-300">{baseModel}</dd>
+          </div>
+          <div>
+            <dt class="inline">License: </dt>
+            <dd class="inline text-mist-300">{license}</dd>
+          </div>
+        </dl>
+      </header>
+      <aside class="rounded-lg border border-white/10 bg-night-900/60 p-5">
+        <h2 class="text-sm font-semibold text-mist-300">Links</h2>
+        <div class="mt-4 grid gap-3">
+          <a
+            href={weights}
+            target="_blank"
+            rel="noopener"
+            class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+          >
+            Weights on Hugging Face&nbsp;&#8599;
+          </a>
+          {links.map((link) => (
+            <a
+              href={link.href}
+              {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+              class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+            >
+              {link.label}
+              {link.href.startsWith("http") && <span aria-hidden="true">&nbsp;&#8599;</span>}
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+    {
+      metrics.length > 0 && (
+        <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {metrics.map((metric) => (
+            <div class="rounded-lg border border-white/10 bg-night-900/60 p-4">
+              <dt class="text-xs leading-snug text-mist-500">{metric.label}</dt>
+              <dd class="mt-2 font-display text-2xl text-cyan-200">{metric.value}</dd>
+              {metric.note && <dd class="mt-1 text-xs text-mist-500">{metric.note}</dd>}
+            </div>
+          ))}
+        </div>
+      )
+    }
+    <hr class="my-10 border-white/8" />
+    <div class="prose max-w-3xl">
+      <Content />
+    </div>
+  </article>
+</Base>

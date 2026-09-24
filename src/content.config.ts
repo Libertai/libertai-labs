@@ -38,4 +38,30 @@ const papers = defineCollection({
   }),
 });
 
-export const collections = { projects, notes, papers };
+const models = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/models" }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    status: z.enum(["shipped", "preview"]).default("shipped"),
+    order: z.number(),
+    date: z.coerce.date(),
+    baseModel: z.string(),
+    weights: z.string().url(),
+    license: z.string().default("Apache-2.0"),
+    metrics: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          note: z.string().optional(),
+        }),
+      )
+      .default([]),
+    links: z
+      .array(z.object({ label: z.string(), href: z.string() }))
+      .default([]),
+  }),
+});
+
+export const collections = { projects, notes, papers, models };
