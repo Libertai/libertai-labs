@@ -51,6 +51,7 @@ const modelStats = [
   { value: "23", label: "model repos", accent: "text-violet-300" },
   { value: "76k+", label: "downloads", accent: "text-cyan-200" },
   { value: "21", label: "quantized builds", accent: "text-violet-300" },
+  { value: "2", label: "LibertAI models", accent: "text-cyan-200" },
 ];
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -270,7 +271,7 @@ const latestNote = notes[0];
           View on Hugging Face&nbsp;&#8599;
         </a>
       </div>
-      <dl class="relative grid gap-4 sm:grid-cols-3 lg:min-w-[24rem]">
+      <dl class="relative grid gap-4 sm:grid-cols-2 lg:min-w-[24rem]">
         {
           modelStats.map((stat) => (
             <div class="rounded-lg border border-white/10 bg-night-950/45 p-5">
