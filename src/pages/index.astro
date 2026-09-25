@@ -24,9 +24,9 @@ const models = (await getCollection("models")).sort(
 const [featured, ...restProjects] = projects;
 
 const heroStats = [
-  { value: "24k+", label: "downloads" },
+  { value: "76k+", label: "downloads" },
   { value: `${projects.length}`, label: "projects" },
-  { value: "10", label: "open repos" },
+  { value: "36", label: "open repos" },
 ];
 
 const labTracks = [
@@ -48,9 +48,9 @@ const labTracks = [
 ];
 
 const modelStats = [
-  { value: "10", label: "repos", accent: "text-violet-300" },
-  { value: "24k+", label: "downloads", accent: "text-cyan-200" },
-  { value: "5", label: "base models", accent: "text-violet-300" },
+  { value: "23", label: "model repos", accent: "text-violet-300" },
+  { value: "76k+", label: "downloads", accent: "text-cyan-200" },
+  { value: "12", label: "base models", accent: "text-violet-300" },
 ];
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
@@ -257,9 +257,9 @@ const latestNote = notes[0];
           Published on Hugging Face
         </h2>
         <p class="mt-3 max-w-xl text-mist-400">
-          Quantized builds of the open models we serve, published under
-          LibertAIDAI with benchmark numbers in every model card. Counts are
-          from June 2026.
+          Our open-weight releases and quantized builds of the open models
+          we serve, published under LibertAIDAI with benchmark numbers in
+          every model card. Counts are from September 2026.
         </p>
         <a
           href="https://huggingface.co/LibertAIDAI"
