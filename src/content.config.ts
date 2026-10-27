@@ -28,13 +28,24 @@ const notes = defineCollection({
 });
 
 const papers = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/papers" }),
+  loader: glob({ pattern: ["**/*.md", "!README.md"], base: "./src/content/papers" }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    publishedAt: z.coerce.date().optional(),
     summary: z.string(),
+    field: z.enum(["AI", "Physics"]).default("AI"),
+    status: z.enum(["draft", "preprint", "published"]).default("preprint"),
+    authors: z.string().optional(),
+    pdf: z.string().optional(),
+    doi: z.string().optional(),
+    arxiv: z.string().optional(),
+    sha256: z.string().optional(),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    links: z
+      .array(z.object({ label: z.string(), href: z.string() }))
+      .default([]),
   }),
 });
 

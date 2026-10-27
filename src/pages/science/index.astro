@@ -1,0 +1,175 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const allPapers = await getCollection("papers");
+const papers = allPapers
+  .filter((paper) => paper.data.publishedAt)
+  .sort(
+    (a, b) =>
+      b.data.date.valueOf() - a.data.date.valueOf() ||
+      a.data.title.localeCompare(b.data.title),
+  );
+
+const physics = allPapers.filter((paper) => paper.data.field === "Physics");
+const ai = allPapers.filter((paper) => paper.data.field === "AI");
+const latest = papers.slice(0, 6);
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const statusLabel: Record<string, string> = {
+  draft: "Draft",
+  preprint: "Preprint",
+  published: "Published",
+};
+
+const tracks = [
+  {
+    title: "AI research",
+    href: "/science/ai",
+    count: ai.length,
+    body: "Decision models, evaluation methods and the systems work behind private agents.",
+    items: ["Deem", "Runtime abliteration", "Model releases", "Measurement notes"],
+    accent: "cyan",
+  },
+  {
+    title: "Physics",
+    href: "/science/physics",
+    count: physics.length,
+    body: "Chronology protection, explicit time-machine initial data, a BEC analogue, engineering limits and relic searches.",
+    items: ["Time machines", "BEC analogue", "Relic searches", "Acquisition and engineering"],
+    accent: "violet",
+  },
+];
+---
+
+<Base
+  title="Science | LibertAI Labs"
+  description="The research programs behind LibertAI Labs: AI systems, decision models, and physics from chronology protection to time-machine construction and relic searches."
+>
+  <section class="relative overflow-hidden border-b border-white/8">
+    <div
+      class="pointer-events-none absolute -top-48 -right-40 h-[42rem] w-[42rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle at 50% 50%, rgba(0,210,201,0.32) 0%, rgba(0,180,180,0.12) 28%, transparent 68%);"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute -bottom-56 -left-44 h-[34rem] w-[34rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle, rgba(100,77,249,0.28) 0%, rgba(100,77,249,0.08) 46%, transparent 70%);"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
+      <p class="section-label">Science</p>
+      <h1 class="mt-6 max-w-3xl text-balance font-display text-5xl leading-[1.02] text-white sm:text-7xl">
+        Two research programs, one standard of evidence.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
+        LibertAI Labs publishes the work that can be checked: model releases,
+        runtime experiments, and physics papers with explicit assumptions,
+        stated losses, and timestamped artifacts.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/science/ai"
+          class="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-5 py-2.5 text-sm font-bold text-night-950 transition-colors hover:bg-cyan-200"
+        >
+          Explore AI research
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+        <a
+          href="/science/physics"
+          class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+        >
+          Explore physics
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+    <div class="grid gap-5 lg:grid-cols-2">
+      {
+        tracks.map((track) => (
+          <a
+            href={track.href}
+            class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-night-900/75 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-night-800/75 sm:p-8"
+          >
+            <div
+              class="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full opacity-70 blur-2xl transition-opacity group-hover:opacity-100"
+              style={`background: radial-gradient(circle, ${track.accent === "violet" ? "rgba(171,158,255,0.22)" : "rgba(0,210,201,0.2)"}, transparent 70%);`}
+              aria-hidden="true"
+            />
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="section-label">{track.accent === "violet" ? "Physics" : "AI"}</p>
+                <h2 class="mt-3 font-display text-3xl text-mist-100">{track.title}</h2>
+              </div>
+              <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-mist-300">
+                {track.count} papers
+              </span>
+            </div>
+            <p class="relative mt-4 max-w-md text-sm leading-relaxed text-mist-400">
+              {track.body}
+            </p>
+            <ul class="relative mt-6 grid gap-2 text-sm text-mist-300 sm:grid-cols-2">
+              {track.items.map((item) => (
+                <li class="rounded-lg border border-white/8 bg-night-950/40 px-3 py-2">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <span class="relative mt-auto pt-7 text-sm font-semibold text-cyan-200 transition-colors group-hover:text-mist-100">
+              {track.accent === "violet" ? "Open physics" : "Browse papers"} &rarr;
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-white/8 bg-night-900/40">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div class="flex items-end justify-between gap-6">
+        <div class="max-w-2xl">
+          <p class="section-label">Latest</p>
+          <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">Recent across science</h2>
+        </div>
+        <a href="/priority" class="hidden text-sm font-semibold text-cyan-200 hover:text-mist-100 sm:inline">
+          All timestamps &rarr;
+        </a>
+      </div>
+      <div class="mt-8 border-t border-white/8">
+        {
+          latest.map((paper) => (
+            <a
+              href={`/papers/${paper.id}`}
+              class="group grid gap-2 border-b border-white/8 py-5 transition-colors hover:bg-night-800/40 md:grid-cols-[10rem_1fr_auto] md:items-baseline md:gap-6 md:px-2"
+            >
+              <div>
+                <time datetime={paper.data.date.toISOString()} class="text-sm text-mist-500">
+                  {dateFormat.format(paper.data.date)}
+                </time>
+                <p class="mt-1 text-[11px] uppercase tracking-wide text-mist-500">
+                  {paper.data.field} / {statusLabel[paper.data.status]}
+                </p>
+              </div>
+              <h3 class="font-display text-lg leading-tight text-mist-100 transition-colors group-hover:text-cyan-200">
+                {paper.data.title}
+              </h3>
+              <span class="text-sm font-semibold text-cyan-200 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
+                Read &rarr;
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

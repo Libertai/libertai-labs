@@ -12,7 +12,22 @@ export async function getStaticPaths() {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
-const { title, summary, date, image, imageAlt } = note.data;
+const {
+  title,
+  summary,
+  date,
+  publishedAt,
+  field,
+  status,
+  authors,
+  pdf,
+  doi,
+  arxiv,
+  sha256,
+  image,
+  imageAlt,
+  links,
+} = note.data;
 const wordCount = note.body.trim().split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
 
@@ -21,6 +36,34 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
 });
+
+const timestampFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "UTC",
+  timeZoneName: "short",
+});
+
+const statusMeta: Record<string, { label: string; class: string }> = {
+  draft: {
+    label: "Draft",
+    class: "border-violet-300/40 bg-violet-300/10 text-violet-300",
+  },
+  preprint: {
+    label: "Preprint",
+    class: "border-cyan-300/40 bg-cyan-300/10 text-cyan-200",
+  },
+  published: {
+    label: "Published",
+    class: "border-white/20 bg-white/5 text-mist-300",
+  },
+};
+
+const meta = statusMeta[status];
+const fieldLabel = field === "Physics" ? "Physics" : "AI research";
 ---
 
 <Base
@@ -45,11 +88,14 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
       href="/#papers"
       class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
     >
-      &larr; All notes
+      &larr; All papers
     </a>
     <header class="mt-8 max-w-3xl">
-      <p class="section-label">Research paper</p>
+      <p class="section-label">{fieldLabel}</p>
       <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-mist-500">
+        <span class={`rounded-full border px-2.5 py-0.5 text-xs ${meta.class}`}>
+          {meta.label}
+        </span>
         <time datetime={date.toISOString()}>{dateFormat.format(date)}</time>
         <span aria-hidden="true">/</span>
         <span>{readingMinutes} min read</span>
@@ -58,6 +104,51 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
         {title}
       </h1>
       <p class="mt-5 text-lg leading-relaxed text-mist-300">{summary}</p>
+      {authors && <p class="mt-4 text-sm text-mist-500">{authors}</p>}
+      {
+        (pdf || doi || arxiv || links.length > 0) && (
+          <div class="mt-6 flex flex-wrap gap-3">
+            {pdf && (
+              <a
+                href={pdf}
+                class="rounded-lg bg-violet-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-violet-400"
+              >
+                Read the PDF&nbsp;&#8599;
+              </a>
+            )}
+            {doi && (
+              <a
+                href={`https://doi.org/${doi}`}
+                target="_blank"
+                rel="noopener"
+                class="rounded-lg border border-cyan-300/40 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-200 transition-colors hover:border-cyan-300/60"
+              >
+                DOI&nbsp;&#8599;
+              </a>
+            )}
+            {arxiv && (
+              <a
+                href={`https://arxiv.org/abs/${arxiv}`}
+                target="_blank"
+                rel="noopener"
+                class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+              >
+                arXiv&nbsp;&#8599;
+              </a>
+            )}
+            {links.map((link) => (
+              <a
+                href={link.href}
+                {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+                class="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5"
+              >
+                {link.label}
+                {link.href.startsWith("http") && <span aria-hidden="true">&nbsp;&#8599;</span>}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </header>
     {
       image && (
@@ -70,6 +161,66 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
             fetchpriority="high"
           />
         </figure>
+      )
+    }
+    {
+      (publishedAt || sha256) && (
+        <aside class="mt-10 rounded-lg border border-white/10 bg-night-900/60 p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <h2 class="text-sm font-semibold text-mist-300">Priority record</h2>
+            <a href="/priority" class="text-sm font-semibold text-cyan-200 hover:text-mist-100">
+              All records &rarr;
+            </a>
+          </div>
+          <dl class="mt-4 grid gap-3 text-sm">
+            {publishedAt && (
+              <div class="flex flex-wrap gap-x-2">
+                <dt class="text-mist-500">First published:</dt>
+                <dd class="text-mist-300">
+                  <time datetime={publishedAt.toISOString()}>
+                    {timestampFormat.format(publishedAt)}
+                  </time>
+                </dd>
+              </div>
+            )}
+            {doi && (
+              <div class="flex flex-wrap gap-x-2">
+                <dt class="text-mist-500">DOI:</dt>
+                <dd>
+                  <a
+                    href={`https://doi.org/${doi}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-cyan-200 hover:text-mist-100"
+                  >
+                    {doi}
+                  </a>
+                </dd>
+              </div>
+            )}
+            {arxiv && (
+              <div class="flex flex-wrap gap-x-2">
+                <dt class="text-mist-500">arXiv:</dt>
+                <dd>
+                  <a
+                    href={`https://arxiv.org/abs/${arxiv}`}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-cyan-200 hover:text-mist-100"
+                  >
+                    {arxiv}
+                  </a>
+                </dd>
+              </div>
+            )}
+            {sha256 && (
+              <div>
+                <dt class="text-mist-500">SHA-256 of the PDF:</dt>
+                <dd class="mt-1 break-all font-mono text-xs text-mist-400">{sha256}</dd>
+              </div>
+            )}
+          </dl>
+        </aside>
       )
     }
     <hr class="my-10 border-white/8" />

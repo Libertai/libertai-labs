@@ -1,0 +1,173 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+
+const ai = (await getCollection("papers"))
+  .filter((paper) => paper.data.field === "AI")
+  .sort(
+    (a, b) =>
+      b.data.date.valueOf() - a.data.date.valueOf() ||
+      a.data.title.localeCompare(b.data.title),
+  );
+
+const bySlug = new Map(ai.map((paper) => [paper.id, paper]));
+
+const groups = [
+  {
+    label: "Decision models",
+    title: "Typed decisions instead of generated prose",
+    body: "Open-weight System One models that return calibrated choices, scores and yes/no decisions in one prefill pass.",
+    slugs: ["deem-open-machine-reflexes"],
+  },
+  {
+    label: "Model behaviour",
+    title: "What actually moves a refusal decision",
+    body: "A controlled abliteration study that falsifies the textbook projection method on a hybrid architecture and isolates when steering breaks generation quality.",
+    slugs: ["prefill-only-stacked-abliteration-paper"],
+  },
+];
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const statusLabel: Record<string, string> = {
+  draft: "Draft",
+  preprint: "Preprint",
+  published: "Published",
+};
+---
+
+<Base
+  title="AI research | LibertAI Labs"
+  description="AI research from LibertAI Labs: decision models, auditable agent runtimes, and the mechanics of model behaviour."
+>
+  <section class="relative overflow-hidden border-b border-white/8">
+    <div
+      class="pointer-events-none absolute -top-48 -right-40 h-[42rem] w-[42rem] rounded-full blur-3xl"
+      style="background: radial-gradient(circle at 50% 50%, rgba(0,210,201,0.32) 0%, rgba(0,180,180,0.12) 30%, transparent 68%);"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+      <nav aria-label="Science sections" class="flex flex-wrap items-center gap-2 text-sm">
+        <a href="/science" class="rounded-md px-2 py-1 text-mist-500 transition-colors hover:text-mist-100">Science</a>
+        <span aria-hidden="true" class="text-mist-600">/</span>
+        <span class="rounded-md bg-cyan-300/10 px-2 py-1 font-semibold text-cyan-200" aria-current="page">AI</span>
+        <a href="/science/physics" class="rounded-md px-2 py-1 text-mist-500 transition-colors hover:text-mist-100">Physics</a>
+        <a href="/priority" class="ml-auto rounded-md px-2 py-1 text-mist-500 transition-colors hover:text-mist-100">Priority registry &rarr;</a>
+      </nav>
+      <p class="section-label mt-12">AI research</p>
+      <h1 class="mt-4 max-w-3xl text-balance font-display text-5xl leading-[1.02] text-white sm:text-7xl">
+        Decisions, runtimes, and the mechanics of model behaviour.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-mist-300">
+        The AI program builds the parts around the model that make it useful
+        and inspectable: calibrated decision heads, persistent agent runtimes,
+        and controlled experiments on what actually changes a model's output.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#papers" class="rounded-lg bg-cyan-300 px-5 py-2.5 text-sm font-bold text-night-950 transition-colors hover:bg-cyan-200">
+          Read the papers
+        </a>
+        <a href="/science/physics" class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5">
+          Physics programme
+        </a>
+      </div>
+      <dl class="mt-12 flex flex-wrap gap-x-10 gap-y-6">
+        <div>
+          <dd class="font-display text-3xl text-mist-100">{ai.length}</dd>
+          <dt class="section-label mt-1">AI papers</dt>
+        </div>
+        <div class="border-l border-white/10 pl-10">
+          <dd class="font-display text-3xl text-mist-100">2</dd>
+          <dt class="section-label mt-1">Research tracks</dt>
+        </div>
+        <div class="border-l border-white/10 pl-10">
+          <dd class="font-display text-3xl text-mist-100">Open</dd>
+          <dt class="section-label mt-1">Weights and code</dt>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="papers" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-16 sm:px-6 sm:py-20">
+    <div class="space-y-16">
+      {
+        groups.map((group) => (
+          <div>
+            <div class="max-w-2xl">
+              <p class="section-label">{group.label}</p>
+              <h2 class="mt-3 font-display text-3xl text-mist-100">{group.title}</h2>
+              <p class="mt-3 text-mist-400">{group.body}</p>
+            </div>
+            <div class="mt-8 grid gap-4 lg:grid-cols-2">
+              {group.slugs.map((slug) => {
+                const paper = bySlug.get(slug);
+                if (!paper) return null;
+                return (
+                  <article class="flex h-full flex-col rounded-xl border border-white/10 bg-night-900/75 p-6 transition-colors hover:border-cyan-300/30 hover:bg-night-800/75">
+                    <div class="flex flex-wrap items-center gap-2 text-xs text-mist-500">
+                      <time datetime={paper.data.date.toISOString()}>{dateFormat.format(paper.data.date)}</time>
+                      <span aria-hidden="true">/</span>
+                      <span class="rounded-full border border-white/15 bg-white/5 px-2 py-0.5 uppercase tracking-wide">
+                        {statusLabel[paper.data.status]}
+                      </span>
+                    </div>
+                    <h3 class="mt-3 font-display text-xl leading-tight text-mist-100">
+                      <a href={`/papers/${paper.id}`} class="transition-colors hover:text-cyan-200">
+                        {paper.data.title}
+                      </a>
+                    </h3>
+                    <p class="mt-2 text-xs text-mist-500">{paper.data.authors ?? "LibertAI Labs"}</p>
+                    <p class="mt-3 text-sm leading-relaxed text-mist-400">{paper.data.summary}</p>
+                    <div class="mt-auto flex flex-wrap gap-4 pt-5 text-sm font-semibold">
+                      <a href={`/papers/${paper.id}`} class="text-cyan-200 hover:text-mist-100">
+                        Paper &rarr;
+                      </a>
+                      {paper.data.pdf && (
+                        <a href={paper.data.pdf} class="text-cyan-200 hover:text-mist-100">
+                          PDF &nbsp;&#8599;
+                        </a>
+                      )}
+                      {paper.data.links.map((link) => (
+                        <a
+                          href={link.href}
+                          {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+                          class="text-cyan-200 hover:text-mist-100"
+                        >
+                          {link.label} {link.href.startsWith("http") && <span aria-hidden="true">&nbsp;&#8599;</span>}
+                        </a>
+                      ))}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-y border-white/8 bg-night-900/50">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div>
+        <p class="section-label">Also in the labs</p>
+        <h2 class="mt-3 font-display text-3xl text-mist-100">Models, notes and runnable releases.</h2>
+        <p class="mt-3 max-w-2xl text-mist-400">
+          The AI work is not only papers. The models section carries the
+          quantized releases and decision models, and the notes carry the
+          measurements behind them.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/#models" class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5">Models</a>
+        <a href="/#notes" class="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-mist-100 transition-colors hover:border-white/30 hover:bg-white/5">Notes</a>
+      </div>
+    </div>
+  </section>
+</Base>

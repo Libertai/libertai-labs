@@ -1,0 +1,196 @@
+{
+  "registry": "https://labs.libertai.io/priority",
+  "first_published": "2026-10-27T16:15:00Z",
+  "license": "cc-by-4.0",
+  "papers": [
+    {
+      "slug": "protection-without-teeth",
+      "title": "Protection without teeth: semiclassical chronology protection on the Ori time machine",
+      "summary": "Hawking's chronology protection loses its force on the Ori time machine. The full image-series tensor gives a negative image-direction eigenvalue that follows the Misner law on approach, then the local eikonal horizon cuts it off at a finite, negligible level.",
+      "pdf": "public/papers/protection-without-teeth.pdf",
+      "keywords": [
+        "chronology protection",
+        "time machine",
+        "quantum field theory",
+        "general relativity",
+        "Ori spacetime"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/protection-without-teeth/"
+    },
+    {
+      "slug": "hybrid-construction",
+      "title": "Initial data for a time machine from dust: an explicit composite construction with a certified ordinary-density scaling regime",
+      "summary": "An explicit composite initial-data construction: vacuum pp-wave core, umbilical slice, dust envelope, and a verified hand-off to Ori outer layers. The full-layer retune makes both gates positive; ordinary density is a certified scaling extrapolation at depth.",
+      "pdf": "public/papers/hybrid-construction.pdf",
+      "keywords": [
+        "time machine",
+        "initial data",
+        "dust envelope",
+        "general relativity",
+        "Ori spacetime"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/hybrid-construction/"
+    },
+    {
+      "slug": "xavier-analysis",
+      "title": "Quotient structure and on-generator diagnostics of vacuum traveling-wave time machines",
+      "summary": "Xavier's vacuum traveling-wave metric admits a switchable quotient, but the closed null generator carries the same epsilon-to-the-minus-two and epsilon-to-the-minus-four singularity as Misner. A sector-level structure and discriminator paper.",
+      "pdf": "public/papers/xavier-analysis.pdf",
+      "keywords": [
+        "time machine",
+        "closed timelike curves",
+        "traveling wave",
+        "quotient spacetime",
+        "quantum field theory"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/xavier-analysis/"
+    },
+    {
+      "slug": "relic-survey",
+      "title": "A search for boost-holonomy relics in the gravitational-wave catalog",
+      "summary": "A boost-holonomy relic leaves an exact mass-scaling signature in gravitational waves. The corrected catalog and posterior cuts return a null, with 82 of 120 Stage-3 pairs surviving and a shared-base cluster at p = 1.000.",
+      "pdf": "public/papers/relic-survey.pdf",
+      "keywords": [
+        "gravitational waves",
+        "boost holonomy",
+        "relic search",
+        "catalog null test",
+        "black holes"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/relic-survey/"
+    },
+    {
+      "slug": "gaia-survey",
+      "title": "A Gaia search for boost-holonomy relics: the full-sky co-spatial radial-velocity pair census",
+      "summary": "The completed full-sky Gaia radial-velocity pair census finds no significant signal. The family statistic is calibrated against a composition-matched null: permissive p = 0.737, strict p = 0.969. 16,358 raw pairs yield 939 permissive and 135 strict candidates.",
+      "pdf": "public/papers/gaia-survey.pdf",
+      "keywords": [
+        "Gaia",
+        "radial velocities",
+        "boost holonomy",
+        "relic search",
+        "full-sky survey"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/gaia-survey/"
+    },
+    {
+      "slug": "bec-analog",
+      "title": "A Bose-Einstein condensate analogue of Misner space: a design study of the kinematic image-sum mechanism",
+      "summary": "A design study of a BEC analogue of the Misner image-sum mechanism. The 314 micrometre image needs about 0.08 nK and the 157 micrometre antipodal correlation about 0.16 nK; B3 to B6 remain open and B1, B2, B7, B8 and B9 are fixed, so it is not a ready proposal.",
+      "pdf": "public/papers/bec-analog.pdf",
+      "keywords": [
+        "Bose-Einstein condensate",
+        "analogue gravity",
+        "Misner space",
+        "quantum field theory",
+        "design study"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/bec-analog/"
+    },
+    {
+      "slug": "review",
+      "title": "Time travel: a critical review",
+      "summary": "A critical review of the time-travel program: chronology protection, constructive machines, the quantum stress computations, the relic searches, and the acquisition and engineering ledger.",
+      "pdf": "public/papers/review.pdf",
+      "keywords": [
+        "time travel",
+        "chronology protection",
+        "review",
+        "quantum field theory",
+        "general relativity"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/review/"
+    },
+    {
+      "slug": "acquisition",
+      "title": "Acquisition, not assembly: the classical manufacture problem for a boost-holonomy time machine, and the three routes to obtaining one",
+      "summary": "The matter in a boost-holonomy time machine can be assembled, but the identification cannot be manufactured by the known classical routes. The paper maps the three acquisition routes and states the 3+1 proof gap.",
+      "pdf": "public/papers/acquisition.pdf",
+      "keywords": [
+        "time machine",
+        "topology",
+        "boost holonomy",
+        "classical gravity",
+        "acquisition"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/acquisition/"
+    },
+    {
+      "slug": "engineering-ledger",
+      "title": "The engineering ledger of a time machine: mass, wrap, siting, and the resource class of an acquired relic",
+      "summary": "The engineering ledger for a time machine: mass and density rungs, the wrap, siting at 0.008 to 0.12 AU, and the resource class of an acquired relic. The wrap is asteroid-industry scale; the survey is civilization-scale.",
+      "pdf": "public/papers/engineering-ledger.pdf",
+      "keywords": [
+        "time machine",
+        "engineering",
+        "resource ledger",
+        "siting",
+        "mass budget"
+      ],
+      "creators": [
+        {
+          "name": "Schemoul, Jonathan",
+          "affiliation": "LibertAI"
+        }
+      ],
+      "date": "2026-10-27",
+      "labs_url": "https://labs.libertai.io/papers/engineering-ledger/"
+    }
+  ]
+}

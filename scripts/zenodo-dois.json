@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "protection-without-teeth",
+    "id": 23696340,
+    "doi": "10.5281/zenodo.23696340",
+    "checksum": "1777dac8972ab9915c5cd750f63f4a935af6d3af0db565c75e46aa887952b6ea"
+  },
+  {
+    "slug": "hybrid-construction",
+    "id": 23696342,
+    "doi": "10.5281/zenodo.23696342",
+    "checksum": "6b6844a17539016302b1a2c26b2b05d0399975bee47092004267f4243443b866"
+  },
+  {
+    "slug": "xavier-analysis",
+    "id": 23696346,
+    "doi": "10.5281/zenodo.23696346",
+    "checksum": "c65082bba90f0b3cd4af61defb55812a8220861b50d044058d29117db6959399"
+  },
+  {
+    "slug": "relic-survey",
+    "id": 23696350,
+    "doi": "10.5281/zenodo.23696350",
+    "checksum": "ea82d8d45406a8fd15d8ad646d5d1e8f64a157c8f66eddca6517a0d6fe9be338"
+  },
+  {
+    "slug": "gaia-survey",
+    "id": 23696354,
+    "doi": "10.5281/zenodo.23696354",
+    "checksum": "217edf6b05d4c364f686d7de4764cefe772f0c6ce4f102abfc01eed26f117366"
+  },
+  {
+    "slug": "bec-analog",
+    "id": 23696356,
+    "doi": "10.5281/zenodo.23696356",
+    "checksum": "4269524fa02eb283c6c00ec3d41b6b6bda3fe27b3a5084df494ac4b0d5b67d5d"
+  },
+  {
+    "slug": "review",
+    "id": 23696358,
+    "doi": "10.5281/zenodo.23696358",
+    "checksum": "a03245b1468dc21e36d2b9fa4050c08eccf3363c754fb02b5554a6c4c25586a5"
+  },
+  {
+    "slug": "acquisition",
+    "id": 23696360,
+    "doi": "10.5281/zenodo.23696360",
+    "checksum": "8e76faa9cb7f18aaaf76c8fef345281527b08a6591f8442495217221a517e4ca"
+  },
+  {
+    "slug": "engineering-ledger",
+    "id": 23696365,
+    "doi": "10.5281/zenodo.23696365",
+    "checksum": "0a39c34ba3dcf3ac3eb3d9f2be5772e9d6e8016c3006695525e3c513ebc5d718"
+  }
+]

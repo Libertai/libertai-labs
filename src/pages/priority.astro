@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+
+const papers = (await getCollection("papers"))
+  .filter((paper) => paper.data.publishedAt)
+  .sort(
+    (a, b) =>
+      a.data.publishedAt!.valueOf() - b.data.publishedAt!.valueOf() ||
+      a.data.title.localeCompare(b.data.title),
+  );
+
+const timestampFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  timeZone: "UTC",
+  timeZoneName: "short",
+});
+
+const statusLabel: Record<string, string> = {
+  draft: "Draft",
+  preprint: "Preprint",
+  published: "Published",
+};
+---
+
+<Base
+  title="Priority and timestamp registry | LibertAI Labs"
+  description="First-publication timestamps, DOI links and SHA-256 hashes for LibertAI Labs papers."
+>
+  <article class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-18">
+    <a
+      href="/#papers"
+      class="inline-flex rounded-md py-2 text-sm text-mist-500 transition-colors hover:text-mist-100"
+    >
+      &larr; All papers
+    </a>
+    <header class="mt-8 max-w-3xl">
+      <p class="section-label">Priority</p>
+      <h1 class="mt-4 font-display text-4xl leading-tight text-mist-100 sm:text-5xl">
+        First-publication record
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-mist-300">
+        Every paper below has a first-public timestamp, a SHA-256 of the exact
+        PDF served here, and a DOI once the Zenodo record is minted. The DOI is
+        the citable priority record. This page is a mirror of the same metadata,
+        not a peer-review claim.
+      </p>
+      <p class="mt-4 text-sm text-mist-500">
+        Registry first published 2026-10-27T16:15:00Z. Machine-readable copy:
+        <a href="/priority.json" class="text-cyan-200 hover:text-mist-100">/priority.json</a>.
+      </p>
+    </header>
+
+    <div class="mt-12 overflow-hidden rounded-lg border border-white/10">
+      <table class="w-full border-collapse text-left text-sm">
+        <thead class="bg-night-900/80 text-mist-500">
+          <tr>
+            <th class="px-4 py-3 font-medium">Paper</th>
+            <th class="hidden px-4 py-3 font-medium md:table-cell">Field</th>
+            <th class="px-4 py-3 font-medium">First published</th>
+            <th class="px-4 py-3 font-medium">Record</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            papers.map((paper) => (
+              <tr class="border-t border-white/8 align-top">
+                <td class="px-4 py-4">
+                  <a
+                    href={`/papers/${paper.id}`}
+                    class="font-display text-base text-mist-100 hover:text-cyan-200"
+                  >
+                    {paper.data.title}
+                  </a>
+                  {paper.data.authors && (
+                    <p class="mt-1 text-xs text-mist-500">{paper.data.authors}</p>
+                  )}
+                  {paper.data.sha256 && (
+                    <p class="mt-2 break-all font-mono text-[11px] text-mist-600">
+                      sha256 {paper.data.sha256}
+                    </p>
+                  )}
+                </td>
+                <td class="hidden px-4 py-4 text-mist-400 md:table-cell">
+                  {paper.data.field}
+                  <span class="mt-1 block text-xs text-mist-600">
+                    {statusLabel[paper.data.status]}
+                  </span>
+                </td>
+                <td class="px-4 py-4 text-mist-300">
+                  <time datetime={paper.data.publishedAt!.toISOString()}>
+                    {timestampFormat.format(paper.data.publishedAt!)}
+                  </time>
+                </td>
+                <td class="px-4 py-4">
+                  <div class="flex flex-col gap-2">
+                    {paper.data.pdf && (
+                      <a href={paper.data.pdf} class="font-semibold text-cyan-200 hover:text-mist-100">
+                        PDF
+                      </a>
+                    )}
+                    {paper.data.doi ? (
+                      <a
+                        href={`https://doi.org/${paper.data.doi}`}
+                        target="_blank"
+                        rel="noopener"
+                        class="font-semibold text-cyan-200 hover:text-mist-100"
+                      >
+                        DOI
+                      </a>
+                    ) : (
+                      <span class="text-xs text-mist-600">DOI pending</span>
+                    )}
+                    {paper.data.arxiv && (
+                      <a
+                        href={`https://arxiv.org/abs/${paper.data.arxiv}`}
+                        target="_blank"
+                        rel="noopener"
+                        class="font-semibold text-cyan-200 hover:text-mist-100"
+                      >
+                        arXiv
+                      </a>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+</Base>

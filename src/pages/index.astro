@@ -31,6 +31,12 @@ const modelStatus: Record<string, { label: string; class: string }> = {
   },
 };
 
+const paperStatusLabel: Record<string, string> = {
+  draft: "Draft",
+  preprint: "Preprint",
+  published: "Published",
+};
+
 const heroStats = [
   { value: "76k+", label: "downloads" },
   { value: `${projects.length}`, label: "projects" },
@@ -300,11 +306,15 @@ the org's downloads this month.
     <div class="max-w-2xl">
       <p class="section-label">Papers</p>
       <h2 class="mt-3 font-display text-3xl text-mist-100 sm:text-4xl">
-        Formal writeups
+        Papers and preprints
       </h2>
       <p class="mt-4 text-mist-400">
-        Full papers with related work, falsifications and precise claims.
+        Full papers, preprints and timestamped drafts. Every entry carries its
+        manuscript date and the UTC timestamp it was first published here.
       </p>
+      <a href="/priority" class="mt-4 inline-flex text-sm font-semibold text-cyan-200 hover:text-mist-100">
+        Priority and timestamp registry &rarr;
+      </a>
     </div>
     <div class="mt-8 border-t border-white/8">
       {
@@ -313,12 +323,17 @@ the org's downloads this month.
             href={`/papers/${note.id}`}
             class="group grid gap-2 border-b border-white/8 py-5 transition-colors hover:bg-night-800/40 md:grid-cols-[9rem_1fr_auto] md:items-baseline md:gap-6 md:px-2"
           >
-            <time
-              datetime={note.data.date.toISOString()}
-              class="text-sm text-mist-500"
-            >
-              {dateFormat.format(note.data.date)}
-            </time>
+            <div>
+              <time
+                datetime={note.data.date.toISOString()}
+                class="text-sm text-mist-500"
+              >
+                {dateFormat.format(note.data.date)}
+              </time>
+              <p class="mt-1 text-[11px] uppercase tracking-wide text-mist-500">
+                {note.data.field} / {paperStatusLabel[note.data.status]}
+              </p>
+            </div>
             <h3 class="font-display text-lg leading-tight text-mist-100 transition-colors group-hover:text-cyan-200">
               {note.data.title}
             </h3>
