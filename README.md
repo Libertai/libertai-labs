@@ -17,7 +17,7 @@ data caches in the source repositories, not here.
 |---|---|
 | `/` | Landing page: latest work, models, projects, papers and notes |
 | `/science/` | Overview of the two research programmes |
-| `/science/ai/` | AI papers: decision models, agent runtimes, model behaviour |
+| `/science/ai/` | AI papers: decision models, model behaviour and measurement |
 | `/science/physics/` | Physics papers: chronology, constructive program, synthesis and searches |
 | `/#papers` | Every paper entry, including drafts and preprints |
 | `/#notes` | Benchmarks and methodology writeups |
