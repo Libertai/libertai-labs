@@ -16,7 +16,7 @@ update the paper entry's `sha256` and `pdf`, update
 | `hybrid-construction.pdf` | Initial data for a time machine from dust | 15 | `6b6844a17539016302b1a2c26b2b05d0399975bee47092004267f4243443b866` |
 | `xavier-analysis.pdf` | Quotient structure and on-generator diagnostics | 24 | `c65082bba90f0b3cd4af61defb55812a8220861b50d044058d29117db6959399` |
 | `relic-survey.pdf` | Boost-holonomy relics in the gravitational-wave catalog | 27 | `ea82d8d45406a8fd15d8ad646d5d1e8f64a157c8f66eddca6517a0d6fe9be338` |
-| `gaia-survey.pdf` | Gaia boost-holonomy relic census | 30 | `217edf6b05d4c364f686d7de4764cefe772f0c6ce4f102abfc01eed26f117366` |
+| `gaia-survey.pdf` | Gaia boost-holonomy relic census | 30 | `88fb22fedfda788e31db5ea103c1aabd01c98db5da2b620d1ce98bd6a2b8e7ed` |
 | `bec-analog.pdf` | BEC analogue of Misner space | 25 | `4269524fa02eb283c6c00ec3d41b6b6bda3fe27b3a5084df494ac4b0d5b67d5d` |
 | `review.pdf` | Time travel: a critical review | 36 | `a03245b1468dc21e36d2b9fa4050c08eccf3363c754fb02b5554a6c4c25586a5` |
 | `acquisition.pdf` | Acquisition, not assembly | 22 | `8e76faa9cb7f18aaaf76c8fef345281527b08a6591f8442495217221a517e4ca` |

@@ -4,10 +4,10 @@ date: 2026-10-27
 publishedAt: 2026-10-27T16:15:00Z
 field: Physics
 status: preprint
-doi: 10.5281/zenodo.23696354
+doi: 10.5281/zenodo.23696500
 authors: Jonathan Schemoul
 summary: "The completed full-sky Gaia radial-velocity pair census finds no significant signal. The family statistic is calibrated against a composition-matched null: permissive p = 0.737, strict p = 0.969."
-sha256: 217edf6b05d4c364f686d7de4764cefe772f0c6ce4f102abfc01eed26f117366
+sha256: 88fb22fedfda788e31db5ea103c1aabd01c98db5da2b620d1ce98bd6a2b8e7ed
 pdf: /papers/gaia-survey.pdf
 ---
 
